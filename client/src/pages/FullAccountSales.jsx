@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Search, Copy, Pencil, Trash2, Check, Crown } from 'lucide-react';
+import { Plus, Search, Copy, Pencil, Trash2, Check, Crown, CheckCircle } from 'lucide-react';
 import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
 import PlatformSelect from '../components/PlatformSelect';
 import AccountSearch from '../components/AccountSearch';
@@ -39,7 +39,7 @@ export default function FullAccountSales() {
       ...f,
       email: account.email,
       password: account.password,
-      platform: account.platform,
+      platform: account.platform || f.platform,
       duration: account.duration || f.duration,
       account_source: account.source,
       account_id: account.id,
@@ -162,6 +162,15 @@ export default function FullAccountSales() {
               <div className="mb-4">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Buscar cuenta existente</label>
                 <AccountSearch onSelect={handleAccountSelect} />
+                {form.account_id && (
+                  <div className="mt-2 flex items-center gap-1.5 text-xs" style={{ color: '#10b981' }}>
+                    <CheckCircle size={12} />
+                    <span>
+                      Cuenta seleccionada
+                      {form.platform ? <span> — plataforma: <strong>{form.platform}</strong></span> : ' (sin plataforma registrada, selecciona una abajo)'}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
 
@@ -182,10 +191,23 @@ export default function FullAccountSales() {
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Número de pedido</label>
                 <input className="input-neon text-sm" value={form.order_number || ''} onChange={e => setForm(f => ({ ...f, order_number: e.target.value }))} />
               </div>
+
               <div className="col-span-2">
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Plataforma</label>
-                <PlatformSelect value={form.platform} onChange={val => setForm(f => ({ ...f, platform: val }))} />
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>
+                  Plataforma
+                  {form.account_id && form.platform && (
+                    <span className="ml-2 text-xs font-normal" style={{ color: '#10b981' }}>(auto-completada)</span>
+                  )}
+                </label>
+                {/* key prop forces PlatformSelect to remount when a new account is selected,
+                    so it always initializes with the correct platform value */}
+                <PlatformSelect
+                  key={form.account_id ? `acc-${form.account_id}` : 'manual'}
+                  value={form.platform}
+                  onChange={val => setForm(f => ({ ...f, platform: val }))}
+                />
               </div>
+
               <div>
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Duración</label>
                 <input className="input-neon text-sm" value={form.duration || ''} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} />
