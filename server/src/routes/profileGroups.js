@@ -15,17 +15,21 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { email, password, platform, duration, profiles_count, sale_price, account_source, account_id, notes } = req.body;
+  const { email, password, platform, duration, profiles_count, price_per_profile, account_source, account_id, notes } = req.body;
+  const count = profiles_count || 1;
+  const ppp = price_per_profile ? parseFloat(price_per_profile) : null;
+  const sale_price = ppp ? (ppp * count).toFixed(2) : null;
+
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     const group = await client.query(
-      `INSERT INTO profile_groups (email,password,platform,duration,profiles_count,sale_price,account_source,account_id,notes)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
-      [email, password, platform, duration, profiles_count || 1, sale_price || null, account_source || 'manual', account_id || null, notes]
+      `INSERT INTO profile_groups (email,password,platform,duration,profiles_count,price_per_profile,sale_price,account_source,account_id,notes)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
+      [email, password, platform, duration, count, ppp, sale_price, account_source || 'manual', account_id || null, notes]
     );
     const groupId = group.rows[0].id;
-    for (let i = 0; i < (profiles_count || 1); i++) {
+    for (let i = 0; i < count; i++) {
       await client.query(
         'INSERT INTO profile_sales (group_id, status) VALUES ($1, $2)',
         [groupId, 'active']
