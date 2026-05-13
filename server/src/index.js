@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const { migrate } = require('./db/migrate');
 const routes = require('./routes');
+const { scheduleBackups, pushBackup } = require('./backup');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,16 @@ app.use(express.json());
 // Keep-alive endpoint — usado por UptimeRobot para evitar que Render duerma
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Backup manual on-demand
+app.post('/api/backup/now', async (req, res) => {
+  try {
+    await pushBackup();
+    res.json({ ok: true, message: 'Backup enviado a GitHub' });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
 });
 
 app.use('/api', routes);
@@ -30,8 +41,14 @@ async function start() {
   } else {
     console.warn('⚠️  DATABASE_URL no configurado — la BD no estará disponible');
   }
+
   app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    if (process.env.GITHUB_TOKEN) {
+      scheduleBackups(6); // backup cada 6 horas
+    } else {
+      console.warn('⚠️  GITHUB_TOKEN no configurado — backups automáticos desactivados');
+    }
   });
 }
 
