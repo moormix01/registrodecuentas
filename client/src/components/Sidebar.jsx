@@ -1,21 +1,19 @@
-import { LayoutDashboard, Package, ShoppingBag, Users, Crown, Bell, LogOut, Menu, X, Wifi } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingBag, Users, Crown, LogOut, Menu, X, Wifi, FileText } from 'lucide-react';
 
 const LINKS = [
-  { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { key: 'own-stock', label: 'Stock Propio', icon: Package },
-  { key: 'provider-accounts', label: 'Cuentas Proveedores', icon: ShoppingBag },
-  { key: 'profile-sales', label: 'Ventas de Perfiles', icon: Users },
-  { key: 'full-account-sales', label: 'Ventas Completas', icon: Crown },
+  { key: 'dashboard',           label: 'Dashboard',           icon: LayoutDashboard },
+  { key: 'own-stock',           label: 'Stock Propio',        icon: Package },
+  { key: 'provider-accounts',   label: 'Cuentas Proveedores', icon: ShoppingBag },
+  { key: 'profile-sales',       label: 'Ventas de Perfiles',  icon: Users },
+  { key: 'full-account-sales',  label: 'Ventas Completas',    icon: Crown },
+  { key: 'doc-preview',         label: 'Documentos',          icon: FileText },
 ];
 
 export default function Sidebar({ page, setPage, onLogout, mobileOpen, setMobileOpen }) {
   return (
     <>
       {mobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-30 md:hidden"
-          onClick={() => setMobileOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/60 z-30 md:hidden" onClick={() => setMobileOpen(false)} />
       )}
 
       <aside className={`
@@ -35,10 +33,7 @@ export default function Sidebar({ page, setPage, onLogout, mobileOpen, setMobile
               <h1 className="font-orbitron text-sm font-bold text-white leading-tight">STREAMING</h1>
               <p className="font-orbitron text-xs" style={{ color: 'rgba(168,85,247,0.8)' }}>REGISTRO</p>
             </div>
-            <button
-              className="md:hidden btn-danger p-1"
-              onClick={() => setMobileOpen(false)}
-            >
+            <button className="md:hidden btn-danger p-1" onClick={() => setMobileOpen(false)}>
               <X size={16} />
             </button>
           </div>
@@ -58,11 +53,7 @@ export default function Sidebar({ page, setPage, onLogout, mobileOpen, setMobile
         </nav>
 
         <div className="p-4 border-t" style={{ borderColor: 'rgba(0,212,255,0.1)' }}>
-          <button
-            onClick={onLogout}
-            className="sidebar-link w-full text-left hover:text-red-400"
-            style={{ color: 'rgba(226,232,240,0.5)' }}
-          >
+          <button onClick={onLogout} className="sidebar-link w-full text-left hover:text-red-400" style={{ color: 'rgba(226,232,240,0.5)' }}>
             <LogOut size={17} />
             <span>Cerrar sesión</span>
           </button>
