@@ -6,10 +6,14 @@ router.get('/search', async (req, res) => {
   try {
     const q = `%${req.query.q || ''}%`;
     const result = await pool.query(`
-      SELECT id, email, password, platform, duration, 'own' as source, status FROM own_accounts
+      SELECT id, email, password, platform, duration, 'own' as source, status,
+             start_date, end_date
+      FROM own_accounts
       WHERE email ILIKE $1 OR platform ILIKE $1
       UNION ALL
-      SELECT id, email, password, platform, duration, 'provider' as source, status FROM provider_accounts
+      SELECT id, email, password, platform, duration, 'provider' as source, status,
+             purchase_date as start_date, expiry_date as end_date
+      FROM provider_accounts
       WHERE email ILIKE $1 OR platform ILIKE $1
       ORDER BY email ASC LIMIT 20
     `, [q]);
