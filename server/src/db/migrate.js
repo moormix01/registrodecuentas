@@ -98,6 +98,10 @@ async function migrate() {
       ALTER TABLE full_account_sales DROP COLUMN IF EXISTS price;
     `).catch(() => {});
 
+    
+    await client.query(`
+      ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS price_per_profile DECIMAL(10,2);
+    `).catch(() => {});
     console.log('✅ Base de datos migrada correctamente');
   } catch (err) {
     console.error('Error en migración:', err);
