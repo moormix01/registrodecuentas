@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T15:27:27.028Z",
+  "generated_at": "2026-05-13T15:29:22.109Z",
   "own_accounts": [
     {
       "id": 1,
@@ -208,7 +208,100 @@
   ],
   "providers": [],
   "provider_accounts": [],
-  "profile_groups": [],
-  "profile_sales": [],
+  "profile_groups": [
+    {
+      "id": 1,
+      "email": "ecudor@eilish.space",
+      "password": "Lukas0706@",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "sale_price": "13.16",
+      "price_per_profile": "1.88",
+      "account_source": "own",
+      "account_id": 8,
+      "notes": "",
+      "created_at": "2026-05-13T15:29:19.479Z"
+    }
+  ],
+  "profile_sales": [
+    {
+      "id": 1,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 2,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 3,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 4,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 5,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 6,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 7,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    }
+  ],
   "full_account_sales": []
 }
