@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Eye, EyeOff, Wifi, Lock, User } from 'lucide-react';
-import Particles from '../components/Particles';
+import { Eye, EyeOff, Zap, Lock, User } from 'lucide-react';
+import StreamingBackground from '../components/StreamingBackground';
 
 export default function Login({ onLogin }) {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -21,21 +21,21 @@ export default function Login({ onLogin }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative" style={{ background: '#05050a' }}>
-      <Particles />
+      <StreamingBackground />
 
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 1 }}>
         <div className="w-96 h-96 rounded-full" style={{
           background: 'radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)',
           filter: 'blur(40px)'
         }} />
       </div>
 
-      <div className="relative z-10 w-full max-w-md px-6 animate-fade-in">
+      <div className="relative w-full max-w-md px-6 animate-fade-in" style={{ zIndex: 2 }}>
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center"
               style={{ background: 'linear-gradient(135deg, rgba(168,85,247,0.3), rgba(0,212,255,0.2))', border: '1px solid rgba(0,212,255,0.3)' }}>
-              <Wifi size={24} style={{ color: '#00d4ff' }} />
+              <Zap size={24} style={{ color: '#00d4ff' }} />
             </div>
           </div>
           <h1 className="font-orbitron text-2xl font-black mb-1" style={{
@@ -44,15 +44,18 @@ export default function Login({ onLogin }) {
           }}>
             JACK STREAMING
           </h1>
-          <p className="font-orbitron text-sm tracking-widest" style={{ color: 'rgba(168,85,247,0.8)' }}>
-            REGISTRO
-          </p>
           <p className="text-xs mt-2" style={{ color: 'rgba(226,232,240,0.35)' }}>
-            Sistema de administración premium
+            Sistema de Registro de Ventas
           </p>
         </div>
 
-        <div className="card-neon p-8" style={{ boxShadow: '0 0 40px rgba(168,85,247,0.1)' }}>
+        <div className="p-8" style={{
+          background: 'rgba(12,12,28,0.72)',
+          border: '1px solid rgba(0,212,255,0.18)',
+          borderRadius: 16,
+          backdropFilter: 'blur(16px)',
+          boxShadow: '0 0 40px rgba(168,85,247,0.1)'
+        }}>
           <form onSubmit={submit} className="space-y-5">
             <div>
               <label className="block text-xs font-medium mb-2" style={{ color: 'rgba(226,232,240,0.6)' }}>
@@ -106,14 +109,10 @@ export default function Login({ onLogin }) {
               className="btn-primary w-full py-3 text-sm font-semibold"
               style={{ opacity: loading ? 0.7 : 1 }}
             >
-              {loading ? 'Verificando...' : 'INGRESAR AL SISTEMA'}
+              {loading ? 'Verificando...' : 'Ingresar'}
             </button>
           </form>
         </div>
-
-        <p className="text-center mt-6 text-xs" style={{ color: 'rgba(226,232,240,0.2)' }}>
-          © 2025 Jack Streaming Registro · Acceso privado
-        </p>
       </div>
     </div>
   );
