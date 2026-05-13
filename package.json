@@ -1,0 +1,13 @@
+{
+  "name": "registrodecuentas",
+  "version": "1.0.0",
+  "description": "Sistema de administración de cuentas streaming",
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "node server/src/index.js",
+    "dev": "node server/src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
