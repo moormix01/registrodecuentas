@@ -39,6 +39,17 @@ router.put('/:id', async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// Release: clear dates, reset to available
+router.patch('/:id/release', async (req, res) => {
+  try {
+    const result = await pool.query(
+      `UPDATE own_accounts SET start_date=null, end_date=null, status='available' WHERE id=$1 RETURNING *`,
+      [req.params.id]
+    );
+    res.json(result.rows[0]);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 router.delete('/:id', async (req, res) => {
   try {
     await pool.query('DELETE FROM own_accounts WHERE id=$1', [req.params.id]);
