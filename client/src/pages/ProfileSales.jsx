@@ -172,8 +172,8 @@ export default function ProfileSales() {
                             <td className="text-xs font-medium" style={{ color: 'rgba(0,212,255,0.7)' }}>{idx + 1}</td>
                             <td className="font-mono text-xs">{sale.order_number || '-'}</td>
                             <td className="font-medium text-sm">{sale.client_name || <span style={{ color: 'rgba(226,232,240,0.3)' }}>Sin asignar</span>}</td>
-                            <td className="text-xs">{sale.purchase_date ? new Date(sale.purchase_date).toLocaleDateString('es') : '-'}</td>
-                            <td className="text-xs">{sale.expiry_date ? new Date(sale.expiry_date).toLocaleDateString('es') : '-'}</td>
+                            <td className="text-xs">{(sale.purchase_date || form.start_date) ? new Date(sale.purchase_date || form.start_date).toLocaleDateString('es') : '-'}</td>
+                            <td className="text-xs">{(sale.expiry_date || form.end_date) ? new Date(sale.expiry_date || form.end_date).toLocaleDateString('es') : '-'}</td>
                             <td><span className={statusClass(sale.status)}>{statusLabel(sale.status)}</span></td>
                             <td>
                               <button onClick={() => {
