@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-05-13T18:46:35.019Z",
+  "generated_at": "2026-05-13T18:49:05.905Z",
+  "note": "Passwords excluded from backups for security",
   "own_accounts": [],
   "providers": [
     {
@@ -21,11 +22,8 @@
     {
       "id": 1,
       "provider_id": 1,
-      "provider_name": null,
       "email": "Ftfffhc25522@outlook.com",
-      "password": "000000",
       "platform": "Prime Video",
-      "order_number": "",
       "duration": "12",
       "purchase_date": "2026-05-13T00:00:00.000Z",
       "expiry_date": "2027-05-13T00:00:00.000Z",
@@ -37,11 +35,8 @@
     {
       "id": 2,
       "provider_id": 2,
-      "provider_name": null,
       "email": "tchan52578@gmail.com",
-      "password": "Ethan1105$",
       "platform": "VIKI RAKUTEN",
-      "order_number": "Z6794113564 ",
       "duration": "3",
       "purchase_date": "2026-05-12T00:00:00.000Z",
       "expiry_date": "2026-08-12T00:00:00.000Z",
@@ -53,11 +48,8 @@
     {
       "id": 3,
       "provider_id": 2,
-      "provider_name": null,
       "email": "connysteuer@gmx.de",
-      "password": "lina100109",
       "platform": "RTL+",
-      "order_number": "Z7872264361 ",
       "duration": "3",
       "purchase_date": "2026-04-28T00:00:00.000Z",
       "expiry_date": "2026-07-28T00:00:00.000Z",
@@ -71,12 +63,11 @@
     {
       "id": 1,
       "email": "ecudor@eilish.space",
-      "password": "Lukas0706@",
       "platform": "Disney+",
       "duration": "1",
       "profiles_count": 7,
-      "sale_price": "13.16",
       "price_per_profile": "1.88",
+      "sale_price": "13.16",
       "account_source": "own",
       "account_id": 8,
       "notes": "",
@@ -166,7 +157,6 @@
     {
       "id": 1,
       "email": "Ftfffhc25522@outlook.com",
-      "password": "000000",
       "platform": "Prime Video",
       "order_number": "842392159821893632",
       "client_name": "",
@@ -183,7 +173,6 @@
     {
       "id": 2,
       "email": "tchan52578@gmail.com",
-      "password": "Ethan1105$",
       "platform": "VIKI RAKUTEN",
       "order_number": "842221162917400576",
       "client_name": "",
@@ -200,7 +189,6 @@
     {
       "id": 3,
       "email": "connysteuer@gmx.de",
-      "password": "lina100109",
       "platform": "RTL+",
       "order_number": "836484869285613568",
       "client_name": "",
