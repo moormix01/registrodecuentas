@@ -41,6 +41,8 @@ export default function FullAccountSales() {
       password: account.password,
       platform: account.platform || f.platform,
       duration: account.duration || f.duration,
+      purchase_date: account.start_date ? account.start_date.split('T')[0] : f.purchase_date,
+      expiry_date: account.end_date ? account.end_date.split('T')[0] : f.expiry_date,
       account_source: account.source,
       account_id: account.id,
     }));
