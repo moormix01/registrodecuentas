@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Plus, Search, Copy, Pencil, Trash2, Check, Package } from 'lucide-react';
+import { Plus, Search, Copy, Pencil, Trash2, Check, Package, RotateCcw } from 'lucide-react';
 import { api, statusClass, statusLabel, copyToClipboard } from '../lib/api';
 import PlatformSelect from '../components/PlatformSelect';
 
 const EMPTY = { email: '', password: '', platform: '', duration: '', start_date: '', end_date: '', status: 'available', notes: '' };
+
+function isExpired(end_date) {
+  if (!end_date) return false;
+  return new Date(end_date) < new Date();
+}
 
 export default function OwnStock() {
   const [items, setItems] = useState([]);
@@ -14,8 +19,10 @@ export default function OwnStock() {
   const [filterStatus, setFilterStatus] = useState('');
   const [copied, setCopied] = useState(null);
   const [confirmDel, setConfirmDel] = useState(null);
+  const [confirmRelease, setConfirmRelease] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [releasing, setReleasing] = useState(null);
   const [error, setError] = useState('');
 
   const load = async () => {
@@ -58,6 +65,16 @@ export default function OwnStock() {
   const del = async (id) => {
     await api.delete(`/own-accounts/${id}`);
     setConfirmDel(null); load();
+  };
+
+  const handleRelease = async (id) => {
+    setReleasing(id);
+    try {
+      await api.patch(`/own-accounts/${id}/release`);
+      setConfirmRelease(null);
+      load();
+    } catch (e) { /* silently reload */ load(); }
+    setReleasing(null);
   };
 
   const PLATFORMS_FILTER = ['Netflix','Disney+','HBO Max','Crunchyroll','Prime Video','Spotify','Apple TV+','Paramount+','Star+','DIRECTV GO','YouTube Premium'];
@@ -106,36 +123,56 @@ export default function OwnStock() {
                 <th>Duración</th><th>Vencimiento</th><th>Estado</th><th>Acciones</th>
               </tr></thead>
               <tbody>
-                {items.map(item => (
-                  <tr key={item.id}>
-                    <td>
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs">{item.email}</span>
-                        <button onClick={() => handleCopy(item.email, `e${item.id}`)} className="btn-secondary p-1">
-                          {copied === `e${item.id}` ? <Check size={12} style={{ color: '#10b981' }} /> : <Copy size={12} />}
-                        </button>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs">••••••</span>
-                        <button onClick={() => handleCopy(item.password, `p${item.id}`)} className="btn-secondary p-1">
-                          {copied === `p${item.id}` ? <Check size={12} style={{ color: '#10b981' }} /> : <Copy size={12} />}
-                        </button>
-                      </div>
-                    </td>
-                    <td><span className="platform-badge">{item.platform}</span></td>
-                    <td className="text-xs">{item.duration || '-'}</td>
-                    <td className="text-xs">{item.end_date ? new Date(item.end_date).toLocaleDateString('es') : '-'}</td>
-                    <td><span className={statusClass(item.status)}>{statusLabel(item.status)}</span></td>
-                    <td>
-                      <div className="flex gap-2">
-                        <button onClick={() => openEdit(item)} className="btn-secondary p-1.5"><Pencil size={13} /></button>
-                        <button onClick={() => setConfirmDel(item.id)} className="btn-danger p-1.5"><Trash2 size={13} /></button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {items.map(item => {
+                  const expired = isExpired(item.end_date);
+                  return (
+                    <tr key={item.id} style={expired ? { background: 'rgba(239,68,68,0.04)' } : {}}>
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs">{item.email}</span>
+                          <button onClick={() => handleCopy(item.email, `e${item.id}`)} className="btn-secondary p-1">
+                            {copied === `e${item.id}` ? <Check size={12} style={{ color: '#10b981' }} /> : <Copy size={12} />}
+                          </button>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs">••••••</span>
+                          <button onClick={() => handleCopy(item.password, `p${item.id}`)} className="btn-secondary p-1">
+                            {copied === `p${item.id}` ? <Check size={12} style={{ color: '#10b981' }} /> : <Copy size={12} />}
+                          </button>
+                        </div>
+                      </td>
+                      <td><span className="platform-badge">{item.platform}</span></td>
+                      <td className="text-xs">{item.duration || '-'}</td>
+                      <td className="text-xs">
+                        {item.end_date ? (
+                          <span style={expired ? { color: '#ef4444', fontWeight: 600 } : {}}>
+                            {new Date(item.end_date).toLocaleDateString('es')}
+                            {expired && ' ⚠ Vencida'}
+                          </span>
+                        ) : '-'}
+                      </td>
+                      <td><span className={statusClass(item.status)}>{statusLabel(item.status)}</span></td>
+                      <td>
+                        <div className="flex gap-1.5 flex-wrap">
+                          {expired && (
+                            <button
+                              onClick={() => setConfirmRelease(item)}
+                              title="Liberar cuenta (borrar fechas y volver a disponible)"
+                              className="btn-secondary p-1.5 flex items-center gap-1 text-xs"
+                              style={{ color: '#f59e0b', borderColor: 'rgba(245,158,11,0.3)' }}
+                            >
+                              <RotateCcw size={12} /> Liberar
+                            </button>
+                          )}
+                          <button onClick={() => openEdit(item)} className="btn-secondary p-1.5"><Pencil size={13} /></button>
+                          <button onClick={() => setConfirmDel(item.id)} className="btn-danger p-1.5"><Trash2 size={13} /></button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -189,6 +226,31 @@ export default function OwnStock() {
                 {saving ? 'Guardando...' : 'Guardar'}
               </button>
               <button onClick={() => setModal(null)} className="btn-secondary flex-1 py-2.5 text-sm">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirm release */}
+      {confirmRelease && (
+        <div className="modal-overlay">
+          <div className="modal-box p-6 max-w-sm text-center">
+            <RotateCcw size={32} className="mx-auto mb-3" style={{ color: '#f59e0b' }} />
+            <p className="text-white font-medium mb-1">¿Liberar esta cuenta?</p>
+            <p className="text-sm mb-1" style={{ color: 'rgba(226,232,240,0.6)' }}>{confirmRelease.email}</p>
+            <p className="text-xs mb-5" style={{ color: 'rgba(226,232,240,0.4)' }}>
+              Se borrarán las fechas de inicio y vencimiento, y la cuenta quedará disponible para vender de nuevo.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => handleRelease(confirmRelease.id)}
+                disabled={releasing === confirmRelease.id}
+                className="btn-primary flex-1 py-2.5 text-sm"
+                style={{ background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.4)', color: '#f59e0b' }}
+              >
+                {releasing === confirmRelease.id ? 'Liberando...' : 'Sí, liberar'}
+              </button>
+              <button onClick={() => setConfirmRelease(null)} className="btn-secondary flex-1 py-2.5 text-sm">Cancelar</button>
             </div>
           </div>
         </div>
