@@ -5,10 +5,23 @@ const router = Router();
 router.get('/', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT pg.*, COUNT(ps.id) as sold_profiles
+      SELECT
+        pg.*,
+        COUNT(ps.id) as sold_profiles,
+        COALESCE(
+          oa.start_date,
+          pa.purchase_date
+        ) as start_date,
+        COALESCE(
+          oa.end_date,
+          pa.expiry_date
+        ) as end_date
       FROM profile_groups pg
       LEFT JOIN profile_sales ps ON pg.id = ps.group_id
-      GROUP BY pg.id ORDER BY pg.created_at DESC
+      LEFT JOIN own_accounts oa ON pg.account_id = oa.id AND pg.account_source = 'own'
+      LEFT JOIN provider_accounts pa ON pg.account_id = pa.id AND pg.account_source = 'provider'
+      GROUP BY pg.id, oa.start_date, oa.end_date, pa.purchase_date, pa.expiry_date
+      ORDER BY pg.created_at DESC
     `);
     res.json(result.rows);
   } catch (e) { res.status(500).json({ error: e.message }); }
@@ -21,7 +34,6 @@ router.post('/', async (req, res) => {
   const ppp = price_per_profile ? parseFloat(price_per_profile) : null;
   const sale_price = ppp ? (ppp * count).toFixed(2) : null;
 
-  // If account_id is set but no dates provided, fetch dates from the source account
   let resolvedStart = start_date || null;
   let resolvedEnd = end_date || null;
 
