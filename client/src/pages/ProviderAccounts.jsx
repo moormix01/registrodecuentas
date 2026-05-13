@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Search, Copy, Pencil, Trash2, Check, ShoppingBag } from 'lucide-react';
+import { Plus, Search, Copy, Pencil, Trash2, Check, ShoppingBag, X } from 'lucide-react';
 import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
 import PlatformSelect from '../components/PlatformSelect';
 
@@ -19,6 +19,11 @@ export default function ProviderAccounts() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
+  // Inline new-provider creation
+  const [showNewProvider, setShowNewProvider] = useState(false);
+  const [newProviderName, setNewProviderName] = useState('');
+  const [savingProvider, setSavingProvider] = useState(false);
+
   const load = async () => {
     setLoading(true);
     let url = '/provider-accounts?';
@@ -37,11 +42,27 @@ export default function ProviderAccounts() {
   useEffect(() => { load(); }, [search, filterPlatform, filterStatus]);
 
   const handleCopy = (text, key) => { copyToClipboard(text); setCopied(key); setTimeout(() => setCopied(null), 1500); };
-  const openAdd = () => { setForm(EMPTY); setError(''); setModal('add'); };
+  const openAdd = () => { setForm(EMPTY); setError(''); setShowNewProvider(false); setNewProviderName(''); setModal('add'); };
   const openEdit = (item) => {
     setForm({ ...item, purchase_date: item.purchase_date?.split('T')[0] || '', expiry_date: item.expiry_date?.split('T')[0] || '' });
-    setError('');
+    setError(''); setShowNewProvider(false); setNewProviderName('');
     setModal('edit');
+  };
+
+  const handleCreateProvider = async () => {
+    if (!newProviderName.trim()) return;
+    setSavingProvider(true);
+    try {
+      const created = await api.post('/providers', { name: newProviderName.trim(), contact: '', notes: '' });
+      const newList = [...providers, created];
+      setProviders(newList);
+      setForm(f => ({ ...f, provider_id: String(created.id) }));
+      setNewProviderName('');
+      setShowNewProvider(false);
+    } catch (e) {
+      setError('No se pudo crear el proveedor');
+    }
+    setSavingProvider(false);
   };
 
   const save = async () => {
@@ -146,13 +167,66 @@ export default function ProviderAccounts() {
           <div className="modal-box p-6">
             <h3 className="font-semibold text-white mb-5">{modal === 'add' ? 'Nueva cuenta proveedor' : 'Editar cuenta'}</h3>
             <div className="grid grid-cols-2 gap-4">
+
+              {/* Proveedor field with inline create */}
               <div className="col-span-2">
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Proveedor</label>
-                <select className="input-neon text-sm" value={form.provider_id || ''} onChange={e => setForm(f => ({ ...f, provider_id: e.target.value }))}>
-                  <option value="">Sin proveedor</option>
-                  {providers.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                </select>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>
+                  Proveedor <span style={{ color: 'rgba(226,232,240,0.3)' }}>(de quién compraste)</span>
+                </label>
+                {!showNewProvider ? (
+                  <div className="flex gap-2">
+                    <select
+                      className="input-neon text-sm flex-1"
+                      value={form.provider_id || ''}
+                      onChange={e => setForm(f => ({ ...f, provider_id: e.target.value }))}
+                    >
+                      <option value="">— Sin proveedor —</option>
+                      {providers.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => setShowNewProvider(true)}
+                      title="Agregar nuevo proveedor"
+                      className="btn-primary px-3 py-1.5 text-xs flex items-center gap-1 shrink-0"
+                      style={{ background: 'rgba(168,85,247,0.25)', border: '1px solid rgba(168,85,247,0.5)' }}
+                    >
+                      <Plus size={13} /> Nuevo
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      className="input-neon text-sm flex-1"
+                      placeholder="Nombre del proveedor (ej: Juan, Tienda X)"
+                      value={newProviderName}
+                      onChange={e => setNewProviderName(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && handleCreateProvider()}
+                      autoFocus
+                    />
+                    <button
+                      type="button"
+                      onClick={handleCreateProvider}
+                      disabled={savingProvider || !newProviderName.trim()}
+                      className="btn-primary px-3 py-1.5 text-xs shrink-0"
+                    >
+                      {savingProvider ? '...' : 'Guardar'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setShowNewProvider(false); setNewProviderName(''); }}
+                      className="btn-secondary p-1.5 shrink-0"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                )}
+                {form.provider_id && providers.find(p => String(p.id) === String(form.provider_id)) && (
+                  <p className="text-xs mt-1" style={{ color: 'rgba(0,212,255,0.7)' }}>
+                    Seleccionado: {providers.find(p => String(p.id) === String(form.provider_id))?.name}
+                  </p>
+                )}
               </div>
+
               <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Correo</label>
                 <input className="input-neon text-sm" value={form.email || ''} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
