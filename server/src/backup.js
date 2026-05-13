@@ -3,15 +3,16 @@ const { pool } = require('./db');
 
 async function collectData() {
   const [own, providerAcc, profileGrp, profileSls, fullSls, provs] = await Promise.all([
-    pool.query('SELECT * FROM own_accounts ORDER BY id'),
-    pool.query('SELECT * FROM provider_accounts ORDER BY id'),
-    pool.query('SELECT * FROM profile_groups ORDER BY id'),
+    pool.query('SELECT id, email, platform, duration, start_date, end_date, status, notes, created_at FROM own_accounts ORDER BY id'),
+    pool.query('SELECT id, provider_id, email, platform, duration, purchase_date, expiry_date, purchase_price, status, notes, created_at FROM provider_accounts ORDER BY id'),
+    pool.query('SELECT id, email, platform, duration, profiles_count, price_per_profile, sale_price, account_source, account_id, notes, created_at FROM profile_groups ORDER BY id'),
     pool.query('SELECT * FROM profile_sales ORDER BY id'),
-    pool.query('SELECT * FROM full_account_sales ORDER BY id'),
+    pool.query('SELECT id, email, platform, order_number, client_name, duration, purchase_date, expiry_date, sale_price, account_source, account_id, status, notes, created_at FROM full_account_sales ORDER BY id'),
     pool.query('SELECT * FROM providers ORDER BY id'),
   ]);
   return {
     generated_at: new Date().toISOString(),
+    note: 'Passwords excluded from backups for security',
     own_accounts:       own.rows,
     providers:          provs.rows,
     provider_accounts:  providerAcc.rows,
@@ -78,7 +79,6 @@ async function pushBackup() {
 
 function scheduleBackups(intervalHours = 6) {
   const ms = intervalHours * 60 * 60 * 1000;
-  // Primera ejecución 2 minutos después de arrancar
   setTimeout(() => {
     pushBackup();
     setInterval(pushBackup, ms);
