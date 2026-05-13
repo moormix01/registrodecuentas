@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Sidebar from './Sidebar';
-import Particles from './Particles';
+import StreamingBackground from './StreamingBackground';
 import { Menu } from 'lucide-react';
 
 export default function Layout({ page, setPage, onLogout, children }) {
@@ -8,7 +8,7 @@ export default function Layout({ page, setPage, onLogout, children }) {
 
   return (
     <div className="min-h-screen flex" style={{ background: '#05050a' }}>
-      <Particles />
+      <StreamingBackground />
 
       <Sidebar
         page={page}
@@ -20,7 +20,7 @@ export default function Layout({ page, setPage, onLogout, children }) {
 
       <div className="flex-1 md:ml-64 relative z-10 min-h-screen flex flex-col">
         <header className="sticky top-0 z-20 flex items-center justify-between px-6 py-4"
-          style={{ background: 'rgba(5,5,10,0.9)', borderBottom: '1px solid rgba(0,212,255,0.08)', backdropFilter: 'blur(10px)' }}>
+          style={{ background: 'rgba(5,5,10,0.75)', borderBottom: '1px solid rgba(0,212,255,0.08)', backdropFilter: 'blur(10px)' }}>
           <button
             className="md:hidden btn-secondary p-2"
             onClick={() => setMobileOpen(true)}
