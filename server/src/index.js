@@ -29,10 +29,11 @@ app.post('/api/backup/now', async (req, res) => {
 
 app.use('/api', routes);
 
-// Auto-reset expired own_accounts back to available
+// Limpieza automática de registros vencidos cada hora
 async function resetExpiredAccounts() {
   try {
-    const result = await pool.query(
+    // 1. Stock propio vencido → disponible de nuevo (la cuenta sigue siendo tuya)
+    const ownReset = await pool.query(
       `UPDATE own_accounts
        SET status = 'available', end_date = NULL, start_date = NULL
        WHERE status = 'sold'
@@ -40,10 +41,42 @@ async function resetExpiredAccounts() {
          AND end_date < NOW()
        RETURNING id, email, platform`
     );
-    if (result.rowCount > 0) {
-      console.log(`[auto-reset] ${result.rowCount} cuenta(s) vencida(s) → disponible:`,
-        result.rows.map(r => `${r.platform} ${r.email}`).join(', '));
+    if (ownReset.rowCount > 0) {
+      console.log(`[auto-reset] ${ownReset.rowCount} cuenta(s) propia(s) vencida(s) → disponible:`,
+        ownReset.rows.map(r => `${r.platform} ${r.email}`).join(', '));
     }
+
+    // 2. Cuentas de proveedor vencidas → eliminar (el proveedor las cancela)
+    const provDel = await pool.query(
+      `DELETE FROM provider_accounts
+       WHERE expiry_date IS NOT NULL AND expiry_date < NOW()
+       RETURNING id, email, platform`
+    );
+    if (provDel.rowCount > 0) {
+      console.log(`[auto-reset] ${provDel.rowCount} cuenta(s) de proveedor eliminada(s):`,
+        provDel.rows.map(r => `${r.platform} ${r.email}`).join(', '));
+    }
+
+    // 3. Ventas de cuenta completa vencidas → eliminar
+    const fullDel = await pool.query(
+      `DELETE FROM full_account_sales
+       WHERE expiry_date IS NOT NULL AND expiry_date < NOW()
+       RETURNING id, platform`
+    );
+    if (fullDel.rowCount > 0) {
+      console.log(`[auto-reset] ${fullDel.rowCount} venta(s) de cuenta completa eliminada(s)`);
+    }
+
+    // 4. Ventas de perfil vencidas → eliminar
+    const profDel = await pool.query(
+      `DELETE FROM profile_sales
+       WHERE expiry_date IS NOT NULL AND expiry_date < NOW()
+       RETURNING id`
+    );
+    if (profDel.rowCount > 0) {
+      console.log(`[auto-reset] ${profDel.rowCount} venta(s) de perfil eliminada(s)`);
+    }
+
   } catch (err) {
     console.error('[auto-reset] Error:', err.message);
   }
