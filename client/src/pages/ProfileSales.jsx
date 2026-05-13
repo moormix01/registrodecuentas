@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Search, Copy, Pencil, Trash2, Check, Users, ChevronDown, ChevronRight, Calculator } from 'lucide-react';
+import { Plus, Search, Copy, Pencil, Trash2, Check, Users, ChevronDown, ChevronRight, Calculator, CheckCircle } from 'lucide-react';
 import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
 import PlatformSelect from '../components/PlatformSelect';
 import AccountSearch from '../components/AccountSearch';
@@ -210,6 +210,12 @@ export default function ProfileSales() {
             <div className="mb-4">
               <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Buscar cuenta existente</label>
               <AccountSearch onSelect={handleAccountSelect} />
+            {form.account_id && (
+              <div className="mt-2 flex items-center gap-1.5 text-xs" style={{ color: '#10b981' }}>
+                <CheckCircle size={12} />
+                <span>Cuenta seleccionada{form.platform ? <span> — <strong>{form.platform}</strong></span> : ' (selecciona plataforma abajo)'}</span>
+              </div>
+            )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -227,7 +233,7 @@ export default function ProfileSales() {
               </div>
               <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Plataforma</label>
-                <PlatformSelect value={form.platform} onChange={val => setForm(f => ({ ...f, platform: val }))} />
+                <PlatformSelect key={form.account_id ? `acc-${form.account_id}` : 'manual'} value={form.platform} onChange={val => setForm(f => ({ ...f, platform: val }))} />
               </div>
               <div>
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Cantidad de perfiles</label>
