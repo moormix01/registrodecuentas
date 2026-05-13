@@ -78,9 +78,9 @@ export default function ProfileSales() {
       const payload = {
         order_number: saleForm.order_number || null,
         client_name: saleForm.client_name || null,
-        purchase_date: saleForm.purchase_date || null,
-        expiry_date: saleForm.expiry_date || null,
-        status: autoStatus(saleForm.expiry_date) || 'active',
+        purchase_date: form.start_date || saleForm.purchase_date || null,
+        expiry_date: form.end_date || saleForm.expiry_date || null,
+        status: autoStatus(form.end_date || saleForm.expiry_date) || 'active',
         notes: saleForm.notes || null,
       };
       const res = await api.put(`/profile-sales/${editSale.id}`, payload);
@@ -292,14 +292,7 @@ export default function ProfileSales() {
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Nombre del cliente</label>
                 <input className="input-neon text-sm" value={saleForm.client_name} onChange={e => setSaleForm(f => ({ ...f, client_name: e.target.value }))} />
               </div>
-              <div>
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha de compra</label>
-                <input type="date" className="input-neon text-sm" value={saleForm.purchase_date} onChange={e => setSaleForm(f => ({ ...f, purchase_date: e.target.value }))} />
-              </div>
-              <div>
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha de vencimiento</label>
-                <input type="date" className="input-neon text-sm" value={saleForm.expiry_date} onChange={e => setSaleForm(f => ({ ...f, expiry_date: e.target.value }))} />
-              </div>
+
               <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Notas</label>
                 <textarea className="input-neon text-sm" rows={2} value={saleForm.notes} onChange={e => setSaleForm(f => ({ ...f, notes: e.target.value }))} />
