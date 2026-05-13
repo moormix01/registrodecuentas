@@ -10,6 +10,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Keep-alive endpoint — usado por UptimeRobot para evitar que Render duerma
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 app.use('/api', routes);
 
 // Serve frontend
