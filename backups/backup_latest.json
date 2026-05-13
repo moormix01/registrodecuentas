@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T19:12:14.374Z",
+  "generated_at": "2026-05-13T19:13:57.671Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [],
   "providers": [
@@ -16,6 +16,13 @@
       "contact": "",
       "notes": "",
       "created_at": "2026-05-13T18:11:34.341Z"
+    },
+    {
+      "id": 3,
+      "name": "NVG",
+      "contact": "",
+      "notes": "",
+      "created_at": "2026-05-13T19:13:06.972Z"
     }
   ],
   "provider_accounts": [
@@ -57,6 +64,19 @@
       "status": "in_use",
       "notes": "",
       "created_at": "2026-05-13T18:26:05.307Z"
+    },
+    {
+      "id": 4,
+      "provider_id": 3,
+      "email": "maboni6588+dno49@gmail.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "purchase_price": "3.27",
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-13T19:13:54.232Z"
     }
   ],
   "profile_groups": [
