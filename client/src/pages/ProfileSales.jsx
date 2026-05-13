@@ -4,7 +4,7 @@ import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../l
 import PlatformSelect from '../components/PlatformSelect';
 import AccountSearch from '../components/AccountSearch';
 
-const EMPTY_GROUP = { email: '', password: '', platform: '', duration: '', profiles_count: 1, price_per_profile: '', account_source: 'manual', account_id: null, notes: '' };
+const EMPTY_GROUP = { email: '', password: '', platform: '', duration: '', profiles_count: 1, price_per_profile: '', account_source: 'manual', account_id: null, notes: '', start_date: '', end_date: '' };
 const EMPTY_SALE = { order_number: '', client_name: '', purchase_date: '', expiry_date: '', status: 'active', notes: '' };
 
 export default function ProfileSales() {
@@ -48,6 +48,8 @@ export default function ProfileSales() {
       password: account.password,
       platform: account.platform,
       duration: account.duration || f.duration,
+      start_date: account.start_date ? account.start_date.split('T')[0] : f.start_date,
+      end_date: account.end_date ? account.end_date.split('T')[0] : f.end_date,
       account_source: account.source,
       account_id: account.id,
     }));
@@ -213,7 +215,11 @@ export default function ProfileSales() {
             {form.account_id && (
               <div className="mt-2 flex items-center gap-1.5 text-xs" style={{ color: '#10b981' }}>
                 <CheckCircle size={12} />
-                <span>Cuenta seleccionada{form.platform ? <span> — <strong>{form.platform}</strong></span> : ' (selecciona plataforma abajo)'}</span>
+                <span>
+                Cuenta seleccionada
+                {form.platform ? <span> — <strong>{form.platform}</strong></span> : ' (selecciona plataforma abajo)'}
+                {form.end_date ? <span> · vence <strong>{form.end_date}</strong></span> : ''}
+              </span>
               </div>
             )}
             </div>
