@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-13T09:27:35.443Z",
+  "generated_at": "2026-05-13T09:29:04.284Z",
   "own_accounts": [
     {
-      "id": 4,
+      "id": 1,
       "email": "disfu1@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -14,7 +14,7 @@
       "created_at": "2026-05-13T08:26:51.711Z"
     },
     {
-      "id": 5,
+      "id": 2,
       "email": "fuxisdh@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -26,7 +26,7 @@
       "created_at": "2026-05-13T08:26:51.909Z"
     },
     {
-      "id": 6,
+      "id": 3,
       "email": "jackcondis@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -38,7 +38,7 @@
       "created_at": "2026-05-13T08:26:52.116Z"
     },
     {
-      "id": 7,
+      "id": 4,
       "email": "dermuni@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -50,7 +50,7 @@
       "created_at": "2026-05-13T08:26:52.306Z"
     },
     {
-      "id": 8,
+      "id": 5,
       "email": "luketemi@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -62,7 +62,7 @@
       "created_at": "2026-05-13T08:26:52.696Z"
     },
     {
-      "id": 9,
+      "id": 6,
       "email": "jackendisn@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -74,7 +74,7 @@
       "created_at": "2026-05-13T08:26:52.914Z"
     },
     {
-      "id": 10,
+      "id": 7,
       "email": "kasksu@eilish.space",
       "password": "Cuentas2026",
       "platform": "Disney+",
@@ -86,7 +86,7 @@
       "created_at": "2026-05-13T08:26:53.121Z"
     },
     {
-      "id": 11,
+      "id": 8,
       "email": "ecudor@eilish.space",
       "password": "Lukas0706@",
       "platform": "Disney+",
@@ -98,7 +98,7 @@
       "created_at": "2026-05-13T08:26:53.312Z"
     },
     {
-      "id": 12,
+      "id": 9,
       "email": "mxmser@eilish.space",
       "password": "Cuentas102030",
       "platform": "Disney+",
@@ -110,7 +110,7 @@
       "created_at": "2026-05-13T08:26:53.520Z"
     },
     {
-      "id": 13,
+      "id": 10,
       "email": "maxlios@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -122,7 +122,7 @@
       "created_at": "2026-05-13T08:26:53.703Z"
     },
     {
-      "id": 14,
+      "id": 11,
       "email": "liosmaxsi@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -134,7 +134,7 @@
       "created_at": "2026-05-13T08:26:54.061Z"
     },
     {
-      "id": 15,
+      "id": 12,
       "email": "hbsurmi@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -146,7 +146,7 @@
       "created_at": "2026-05-13T08:26:54.258Z"
     },
     {
-      "id": 16,
+      "id": 13,
       "email": "mimaxes@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -158,7 +158,7 @@
       "created_at": "2026-05-13T08:26:54.606Z"
     },
     {
-      "id": 17,
+      "id": 14,
       "email": "jackenmx@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -170,7 +170,7 @@
       "created_at": "2026-05-13T08:26:54.807Z"
     },
     {
-      "id": 18,
+      "id": 15,
       "email": "doggat@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -182,7 +182,7 @@
       "created_at": "2026-05-13T08:26:55.028Z"
     },
     {
-      "id": 19,
+      "id": 16,
       "email": "fuerti@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -194,7 +194,7 @@
       "created_at": "2026-05-13T08:26:55.243Z"
     },
     {
-      "id": 20,
+      "id": 17,
       "email": "tuninero@eilish.space",
       "password": "Cuentas2026",
       "platform": "HBO Max",
@@ -208,100 +208,7 @@
   ],
   "providers": [],
   "provider_accounts": [],
-  "profile_groups": [
-    {
-      "id": 11,
-      "email": "ecudor@eilish.space",
-      "password": "Lukas0706@",
-      "platform": "Disney+",
-      "duration": "1",
-      "profiles_count": 7,
-      "notes": "",
-      "created_at": "2026-05-13T09:26:42.802Z",
-      "sale_price": "13.16",
-      "account_source": "own",
-      "account_id": 11,
-      "price_per_profile": "1.88"
-    }
-  ],
-  "profile_sales": [
-    {
-      "id": 45,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    },
-    {
-      "id": 46,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    },
-    {
-      "id": 47,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    },
-    {
-      "id": 48,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    },
-    {
-      "id": 49,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    },
-    {
-      "id": 50,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    },
-    {
-      "id": 51,
-      "group_id": 11,
-      "order_number": null,
-      "client_name": null,
-      "purchase_date": null,
-      "expiry_date": null,
-      "status": "active",
-      "notes": null,
-      "created_at": "2026-05-13T09:26:42.802Z"
-    }
-  ],
+  "profile_groups": [],
+  "profile_sales": [],
   "full_account_sales": []
 }
