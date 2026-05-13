@@ -113,7 +113,7 @@ export default function FullAccountSales() {
             <table>
               <thead><tr>
                 <th>Cliente</th><th>Plataforma</th><th>Correo</th><th>Pass</th>
-                <th>Pedido</th><th>Vence</th><th>Precio venta</th><th>Estado</th><th></th>
+                <th>Pedido</th><th>Compra</th><th>Vence</th><th>Precio venta</th><th>Estado</th><th></th>
               </tr></thead>
               <tbody>
                 {items.map(item => (
@@ -135,6 +135,7 @@ export default function FullAccountSales() {
                       </button>
                     </td>
                     <td className="font-mono text-xs">{item.order_number || '-'}</td>
+                    <td className="text-xs">{item.purchase_date ? new Date(item.purchase_date).toLocaleDateString('es') : '-'}</td>
                     <td className="text-xs">{item.expiry_date ? new Date(item.expiry_date).toLocaleDateString('es') : '-'}</td>
                     <td className="text-xs font-semibold" style={{ color: '#10b981' }}>{item.sale_price ? `$${item.sale_price}` : '-'}</td>
                     <td><span className={statusClass(item.status)}>{statusLabel(item.status)}</span></td>
