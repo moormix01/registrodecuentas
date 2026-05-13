@@ -6,6 +6,7 @@ import OwnStock from './pages/OwnStock';
 import ProviderAccounts from './pages/ProviderAccounts';
 import ProfileSales from './pages/ProfileSales';
 import FullAccountSales from './pages/FullAccountSales';
+import DocPreview from './pages/DocPreview';
 import Layout from './components/Layout';
 
 const PAGES = {
@@ -14,6 +15,7 @@ const PAGES = {
   'provider-accounts': ProviderAccounts,
   'profile-sales': ProfileSales,
   'full-account-sales': FullAccountSales,
+  'doc-preview': DocPreview,
 };
 
 export default function App() {
