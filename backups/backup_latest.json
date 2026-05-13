@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T19:13:57.671Z",
+  "generated_at": "2026-05-13T19:15:15.651Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [],
   "providers": [
@@ -74,24 +74,24 @@
       "purchase_date": "2026-05-13T00:00:00.000Z",
       "expiry_date": "2026-06-13T00:00:00.000Z",
       "purchase_price": "3.27",
-      "status": "active",
+      "status": "in_use",
       "notes": "",
       "created_at": "2026-05-13T19:13:54.232Z"
     }
   ],
   "profile_groups": [
     {
-      "id": 1,
-      "email": "ecudor@eilish.space",
+      "id": 2,
+      "email": "maboni6588+dno49@gmail.com",
       "platform": "Disney+",
       "duration": "1",
       "profiles_count": 7,
       "price_per_profile": "1.88",
       "sale_price": "13.16",
-      "account_source": "own",
-      "account_id": 8,
+      "account_source": "provider",
+      "account_id": 4,
       "notes": "",
-      "created_at": "2026-05-13T15:29:19.479Z"
+      "created_at": "2026-05-13T19:14:56.807Z"
     }
   ],
   "profile_sales": [
@@ -171,6 +171,83 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 8,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 9,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 10,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 11,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 12,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 13,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 14,
+      "group_id": 2,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
     }
   ],
   "full_account_sales": [
