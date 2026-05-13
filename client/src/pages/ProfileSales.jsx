@@ -78,9 +78,9 @@ export default function ProfileSales() {
       const payload = {
         order_number: saleForm.order_number || null,
         client_name: saleForm.client_name || null,
-        purchase_date: form.start_date || saleForm.purchase_date || null,
-        expiry_date: form.end_date || saleForm.expiry_date || null,
-        status: autoStatus(form.end_date || saleForm.expiry_date) || 'active',
+        purchase_date: (() => { const g = groups.find(x => x.id === editSale.group_id); return (g && g.start_date) || saleForm.purchase_date || null; })(),
+        expiry_date: (() => { const g = groups.find(x => x.id === editSale.group_id); return (g && g.end_date) || saleForm.expiry_date || null; })(),
+        status: (() => { const g = groups.find(x => x.id === editSale.group_id); return autoStatus((g && g.end_date) || saleForm.expiry_date) || 'active'; })(),
         notes: saleForm.notes || null,
       };
       const res = await api.put(`/profile-sales/${editSale.id}`, payload);
@@ -172,8 +172,8 @@ export default function ProfileSales() {
                             <td className="text-xs font-medium" style={{ color: 'rgba(0,212,255,0.7)' }}>{idx + 1}</td>
                             <td className="font-mono text-xs">{sale.order_number || '-'}</td>
                             <td className="font-medium text-sm">{sale.client_name || <span style={{ color: 'rgba(226,232,240,0.3)' }}>Sin asignar</span>}</td>
-                            <td className="text-xs">{(sale.purchase_date || form.start_date) ? new Date(sale.purchase_date || form.start_date).toLocaleDateString('es') : '-'}</td>
-                            <td className="text-xs">{(sale.expiry_date || form.end_date) ? new Date(sale.expiry_date || form.end_date).toLocaleDateString('es') : '-'}</td>
+                            <td className="text-xs">{(sale.purchase_date || group.start_date) ? new Date(sale.purchase_date || group.start_date).toLocaleDateString('es') : '-'}</td>
+                            <td className="text-xs">{(sale.expiry_date || group.end_date) ? new Date(sale.expiry_date || group.end_date).toLocaleDateString('es') : '-'}</td>
                             <td><span className={statusClass(sale.status)}>{statusLabel(sale.status)}</span></td>
                             <td>
                               <button onClick={() => {
