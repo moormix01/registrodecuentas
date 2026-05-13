@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Plus, Search, Copy, Pencil, Trash2, Check, Users, ChevronDown, ChevronRight } from 'lucide-react';
+import { Plus, Search, Copy, Pencil, Trash2, Check, Users, ChevronDown, ChevronRight, Calculator } from 'lucide-react';
 import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
 import PlatformSelect from '../components/PlatformSelect';
 import AccountSearch from '../components/AccountSearch';
 
-const EMPTY_GROUP = { email: '', password: '', platform: '', duration: '', profiles_count: 1, sale_price: '', account_source: 'manual', account_id: null, notes: '' };
+const EMPTY_GROUP = { email: '', password: '', platform: '', duration: '', profiles_count: 1, price_per_profile: '', account_source: 'manual', account_id: null, notes: '' };
 const EMPTY_SALE = { order_number: '', client_name: '', purchase_date: '', expiry_date: '', status: 'active', notes: '' };
 
 export default function ProfileSales() {
@@ -51,6 +51,13 @@ export default function ProfileSales() {
       account_source: account.source,
       account_id: account.id,
     }));
+  };
+
+  const totalCalculado = () => {
+    const ppp = parseFloat(form.price_per_profile);
+    const count = parseInt(form.profiles_count) || 1;
+    if (!isNaN(ppp) && ppp > 0) return (ppp * count).toFixed(2);
+    return null;
   };
 
   const saveGroup = async () => {
@@ -113,6 +120,8 @@ export default function ProfileSales() {
           {filteredGroups.map(group => {
             const groupSales = salesForGroup(group.id);
             const isOpen = expanded[group.id];
+            const ppp = parseFloat(group.price_per_profile);
+            const total = parseFloat(group.sale_price);
             return (
               <div key={group.id} className="card-neon overflow-hidden">
                 <div className="p-4 flex items-center justify-between cursor-pointer hover:bg-white/[0.02]"
@@ -132,8 +141,13 @@ export default function ProfileSales() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3 flex-shrink-0">
-                    {group.sale_price && (
-                      <span className="text-xs font-bold" style={{ color: '#10b981' }}>${group.sale_price}</span>
+                    {total > 0 && (
+                      <div style={{ textAlign: 'right' }}>
+                        <div className="text-sm font-bold" style={{ color: '#10b981' }}>${total.toFixed(2)}</div>
+                        {ppp > 0 && (
+                          <div className="text-xs" style={{ color: 'rgba(226,232,240,0.35)' }}>${ppp.toFixed(2)} × {group.profiles_count}</div>
+                        )}
+                      </div>
                     )}
                     <span className="text-xs font-medium" style={{ color: 'rgba(226,232,240,0.5)' }}>
                       {groupSales.filter(s => s.client_name).length}/{group.profiles_count} perfiles
@@ -220,9 +234,22 @@ export default function ProfileSales() {
                 <input type="number" min="1" max="20" className="input-neon text-sm" value={form.profiles_count} onChange={e => setForm(f => ({ ...f, profiles_count: parseInt(e.target.value) || 1 }))} />
               </div>
               <div>
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Precio de venta (total)</label>
-                <input type="number" step="0.01" className="input-neon text-sm" placeholder="$0.00" value={form.sale_price || ''} onChange={e => setForm(f => ({ ...f, sale_price: e.target.value }))} />
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Precio por perfil ($)</label>
+                <input type="number" step="0.01" className="input-neon text-sm" placeholder="$0.00" value={form.price_per_profile || ''} onChange={e => setForm(f => ({ ...f, price_per_profile: e.target.value }))} />
               </div>
+
+              {totalCalculado() && (
+                <div className="col-span-2 rounded-lg p-3 flex items-center gap-3" style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)' }}>
+                  <Calculator size={16} style={{ color: '#10b981' }} />
+                  <div>
+                    <div className="text-xs" style={{ color: 'rgba(226,232,240,0.5)' }}>Total calculado automáticamente</div>
+                    <div className="text-lg font-bold" style={{ color: '#10b981' }}>
+                      ${totalCalculado()} <span className="text-xs font-normal" style={{ color: 'rgba(226,232,240,0.4)' }}>({form.profiles_count} × ${parseFloat(form.price_per_profile).toFixed(2)})</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Notas</label>
                 <textarea className="input-neon text-sm" rows={2} value={form.notes || ''} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
