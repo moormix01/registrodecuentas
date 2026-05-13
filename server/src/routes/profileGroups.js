@@ -15,10 +15,33 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { email, password, platform, duration, profiles_count, price_per_profile, account_source, account_id, notes } = req.body;
+  const { email, password, platform, duration, profiles_count, price_per_profile,
+          account_source, account_id, notes, start_date, end_date } = req.body;
   const count = profiles_count || 1;
   const ppp = price_per_profile ? parseFloat(price_per_profile) : null;
   const sale_price = ppp ? (ppp * count).toFixed(2) : null;
+
+  // If account_id is set but no dates provided, fetch dates from the source account
+  let resolvedStart = start_date || null;
+  let resolvedEnd = end_date || null;
+
+  if (account_id && (!resolvedStart || !resolvedEnd)) {
+    try {
+      if (account_source === 'own') {
+        const r = await pool.query('SELECT start_date, end_date FROM own_accounts WHERE id=$1', [account_id]);
+        if (r.rows[0]) {
+          resolvedStart = resolvedStart || (r.rows[0].start_date ? r.rows[0].start_date.toISOString().split('T')[0] : null);
+          resolvedEnd   = resolvedEnd   || (r.rows[0].end_date   ? r.rows[0].end_date.toISOString().split('T')[0]   : null);
+        }
+      } else if (account_source === 'provider') {
+        const r = await pool.query('SELECT purchase_date, expiry_date FROM provider_accounts WHERE id=$1', [account_id]);
+        if (r.rows[0]) {
+          resolvedStart = resolvedStart || (r.rows[0].purchase_date ? r.rows[0].purchase_date.toISOString().split('T')[0] : null);
+          resolvedEnd   = resolvedEnd   || (r.rows[0].expiry_date   ? r.rows[0].expiry_date.toISOString().split('T')[0]   : null);
+        }
+      }
+    } catch (_) {}
+  }
 
   const client = await pool.connect();
   try {
@@ -29,10 +52,11 @@ router.post('/', async (req, res) => {
       [email, password, platform, duration, count, ppp, sale_price, account_source || 'manual', account_id || null, notes]
     );
     const groupId = group.rows[0].id;
+
     for (let i = 0; i < count; i++) {
       await client.query(
-        'INSERT INTO profile_sales (group_id, status) VALUES ($1, $2)',
-        [groupId, 'active']
+        'INSERT INTO profile_sales (group_id, status, purchase_date, expiry_date) VALUES ($1, $2, $3, $4)',
+        [groupId, 'active', resolvedStart, resolvedEnd]
       );
     }
 
