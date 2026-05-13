@@ -4,7 +4,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    let q = `SELECT ps.*, pg.email, pg.password, pg.platform, pg.duration
+    let q = `SELECT ps.*, pg.email, pg.password, pg.platform, pg.duration, pg.sale_price
              FROM profile_sales ps
              JOIN profile_groups pg ON ps.group_id = pg.id WHERE 1=1`;
     const params = [];
@@ -18,13 +18,22 @@ router.get('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const { order_number, client_name, purchase_date, expiry_date, price, status, notes } = req.body;
   try {
+    const { order_number, client_name, purchase_date, expiry_date, status, notes } = req.body;
     const result = await pool.query(
-      `UPDATE profile_sales SET order_number=$1,client_name=$2,purchase_date=$3,expiry_date=$4,price=$5,status=$6,notes=$7
-       WHERE id=$8 RETURNING *`,
-      [order_number, client_name, purchase_date || null, expiry_date || null, price || null, status, notes, req.params.id]
+      `UPDATE profile_sales SET order_number=$1, client_name=$2, purchase_date=$3,
+       expiry_date=$4, status=$5, notes=$6 WHERE id=$7 RETURNING *`,
+      [
+        order_number || null,
+        client_name || null,
+        purchase_date || null,
+        expiry_date || null,
+        status || 'active',
+        notes || null,
+        req.params.id
+      ]
     );
+    if (result.rows.length === 0) return res.status(404).json({ error: 'Not found' });
     res.json(result.rows[0]);
   } catch (e) { res.status(500).json({ error: e.message }); }
 });

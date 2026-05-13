@@ -15,13 +15,14 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { email, password, platform, duration, profiles_count, notes } = req.body;
+  const { email, password, platform, duration, profiles_count, sale_price, account_source, account_id, notes } = req.body;
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     const group = await client.query(
-      'INSERT INTO profile_groups (email,password,platform,duration,profiles_count,notes) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',
-      [email, password, platform, duration, profiles_count || 1, notes]
+      `INSERT INTO profile_groups (email,password,platform,duration,profiles_count,sale_price,account_source,account_id,notes)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
+      [email, password, platform, duration, profiles_count || 1, sale_price || null, account_source || 'manual', account_id || null, notes]
     );
     const groupId = group.rows[0].id;
     for (let i = 0; i < (profiles_count || 1); i++) {
@@ -30,6 +31,13 @@ router.post('/', async (req, res) => {
         [groupId, 'active']
       );
     }
+
+    if (account_id && account_source === 'own') {
+      await client.query("UPDATE own_accounts SET status='sold' WHERE id=$1", [account_id]);
+    } else if (account_id && account_source === 'provider') {
+      await client.query("UPDATE provider_accounts SET status='in_use' WHERE id=$1", [account_id]);
+    }
+
     await client.query('COMMIT');
     res.status(201).json(group.rows[0]);
   } catch (e) {

@@ -6,6 +6,7 @@ const profileGroups = require('./profileGroups');
 const profileSales = require('./profileSales');
 const fullAccountSales = require('./fullAccountSales');
 const dashboard = require('./dashboard');
+const accounts = require('./accounts');
 
 const router = Router();
 
@@ -17,5 +18,6 @@ router.use('/profile-groups', profileGroups);
 router.use('/profile-sales', profileSales);
 router.use('/full-account-sales', fullAccountSales);
 router.use('/dashboard', dashboard);
+router.use('/accounts', accounts);
 
 module.exports = router;

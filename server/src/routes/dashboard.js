@@ -12,7 +12,8 @@ router.get('/summary', async (req, res) => {
       provTotal, provActive, provExpiring, provExpired,
       profileSalesTotal, profileSalesActive,
       fullSalesTotal, fullSalesActive,
-      revenueProfile, revenueFull
+      revenueFromGroups, revenueFromFull,
+      totalCosts
     ] = await Promise.all([
       pool.query('SELECT COUNT(*) FROM own_accounts'),
       pool.query("SELECT COUNT(*) FROM own_accounts WHERE status='available'"),
@@ -25,13 +26,18 @@ router.get('/summary', async (req, res) => {
       pool.query("SELECT COUNT(*) FROM profile_sales WHERE status='active'"),
       pool.query('SELECT COUNT(*) FROM full_account_sales'),
       pool.query("SELECT COUNT(*) FROM full_account_sales WHERE status='active'"),
-      pool.query('SELECT COALESCE(SUM(price),0) as total FROM profile_sales WHERE price IS NOT NULL'),
-      pool.query('SELECT COALESCE(SUM(price),0) as total FROM full_account_sales WHERE price IS NOT NULL'),
+      pool.query('SELECT COALESCE(SUM(sale_price),0) as total FROM profile_groups WHERE sale_price IS NOT NULL'),
+      pool.query('SELECT COALESCE(SUM(sale_price),0) as total FROM full_account_sales WHERE sale_price IS NOT NULL'),
+      pool.query('SELECT COALESCE(SUM(purchase_price),0) as total FROM provider_accounts WHERE purchase_price IS NOT NULL'),
     ]);
+
+    const totalRevenue = parseFloat(revenueFromGroups.rows[0].total) + parseFloat(revenueFromFull.rows[0].total);
+    const totalCost = parseFloat(totalCosts.rows[0].total);
+    const netProfit = totalRevenue - totalCost;
 
     const byPlatform = await pool.query(`
       SELECT platform, COUNT(*) as count FROM (
-        SELECT platform FROM profile_sales ps JOIN profile_groups pg ON ps.group_id=pg.id
+        SELECT pg.platform FROM profile_sales ps JOIN profile_groups pg ON ps.group_id=pg.id
         UNION ALL
         SELECT platform FROM full_account_sales
       ) combined GROUP BY platform ORDER BY count DESC LIMIT 5
@@ -74,7 +80,9 @@ router.get('/summary', async (req, res) => {
         profileActive: parseInt(profileSalesActive.rows[0].count),
         fullSales: parseInt(fullSalesTotal.rows[0].count),
         fullActive: parseInt(fullSalesActive.rows[0].count),
-        totalRevenue: parseFloat(revenueProfile.rows[0].total) + parseFloat(revenueFull.rows[0].total),
+        totalRevenue,
+        totalCost,
+        netProfit,
       },
       byPlatform: byPlatform.rows,
       recentSales: recentSales.rows,

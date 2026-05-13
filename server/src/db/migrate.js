@@ -49,6 +49,9 @@ async function migrate() {
         platform VARCHAR(100) NOT NULL,
         duration VARCHAR(100),
         profiles_count INTEGER DEFAULT 1,
+        sale_price DECIMAL(10,2),
+        account_source VARCHAR(20) DEFAULT 'manual',
+        account_id INTEGER,
         notes TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
@@ -60,7 +63,6 @@ async function migrate() {
         client_name VARCHAR(255),
         purchase_date DATE,
         expiry_date DATE,
-        price DECIMAL(10,2),
         status VARCHAR(50) DEFAULT 'active',
         notes TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -76,12 +78,26 @@ async function migrate() {
         duration VARCHAR(100),
         purchase_date DATE,
         expiry_date DATE,
-        price DECIMAL(10,2),
+        sale_price DECIMAL(10,2),
+        account_source VARCHAR(20) DEFAULT 'manual',
+        account_id INTEGER,
         status VARCHAR(50) DEFAULT 'active',
         notes TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    await client.query(`
+      ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS sale_price DECIMAL(10,2);
+      ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS account_source VARCHAR(20) DEFAULT 'manual';
+      ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS account_id INTEGER;
+      ALTER TABLE profile_sales DROP COLUMN IF EXISTS price;
+      ALTER TABLE full_account_sales ADD COLUMN IF NOT EXISTS sale_price DECIMAL(10,2);
+      ALTER TABLE full_account_sales ADD COLUMN IF NOT EXISTS account_source VARCHAR(20) DEFAULT 'manual';
+      ALTER TABLE full_account_sales ADD COLUMN IF NOT EXISTS account_id INTEGER;
+      ALTER TABLE full_account_sales DROP COLUMN IF EXISTS price;
+    `).catch(() => {});
+
     console.log('✅ Base de datos migrada correctamente');
   } catch (err) {
     console.error('Error en migración:', err);

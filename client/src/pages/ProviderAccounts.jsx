@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Search, Copy, Pencil, Trash2, Check, ShoppingBag } from 'lucide-react';
-import { api, PLATFORMS, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
+import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
+import PlatformSelect from '../components/PlatformSelect';
 
 const EMPTY = { provider_id: '', email: '', password: '', platform: '', order_number: '', duration: '', purchase_date: '', expiry_date: '', purchase_price: '', status: 'active', notes: '' };
 
@@ -15,6 +16,8 @@ export default function ProviderAccounts() {
   const [copied, setCopied] = useState(null);
   const [confirmDel, setConfirmDel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   const load = async () => {
     setLoading(true);
@@ -34,27 +37,35 @@ export default function ProviderAccounts() {
   useEffect(() => { load(); }, [search, filterPlatform, filterStatus]);
 
   const handleCopy = (text, key) => { copyToClipboard(text); setCopied(key); setTimeout(() => setCopied(null), 1500); };
-  const openAdd = () => { setForm(EMPTY); setModal('add'); };
+  const openAdd = () => { setForm(EMPTY); setError(''); setModal('add'); };
   const openEdit = (item) => {
     setForm({ ...item, purchase_date: item.purchase_date?.split('T')[0] || '', expiry_date: item.expiry_date?.split('T')[0] || '' });
+    setError('');
     setModal('edit');
   };
 
   const save = async () => {
-    const payload = { ...form, status: autoStatus(form.expiry_date) };
-    if (modal === 'add') await api.post('/provider-accounts', payload);
-    else await api.put(`/provider-accounts/${form.id}`, payload);
-    setModal(null); load();
+    if (!form.email || !form.password || !form.platform) { setError('Correo, contraseña y plataforma son requeridos'); return; }
+    setSaving(true); setError('');
+    try {
+      const payload = { ...form, status: autoStatus(form.expiry_date) };
+      if (modal === 'add') await api.post('/provider-accounts', payload);
+      else await api.put(`/provider-accounts/${form.id}`, payload);
+      setModal(null); load();
+    } catch (e) { setError(e.message || 'Error al guardar'); }
+    setSaving(false);
   };
 
   const del = async (id) => { await api.delete(`/provider-accounts/${id}`); setConfirmDel(null); load(); };
+
+  const PLATFORMS_FILTER = ['Netflix','Disney+','HBO Max','Crunchyroll','Prime Video','Spotify','Apple TV+','Paramount+','Star+','DIRECTV GO','YouTube Premium'];
 
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h2 className="font-orbitron text-lg font-bold text-white">Cuentas de Proveedores</h2>
-          <p className="text-xs mt-0.5" style={{ color: 'rgba(226,232,240,0.4)' }}>Cuentas compradas a proveedores</p>
+          <p className="text-xs mt-0.5" style={{ color: 'rgba(226,232,240,0.4)' }}>Cuentas compradas a proveedores — el precio aquí es tu costo</p>
         </div>
         <button onClick={openAdd} className="btn-primary flex items-center gap-2 px-4 py-2 text-sm">
           <Plus size={15} /> Nueva cuenta
@@ -68,7 +79,7 @@ export default function ProviderAccounts() {
         </div>
         <select className="input-neon text-sm w-40" value={filterPlatform} onChange={e => setFilterPlatform(e.target.value)}>
           <option value="">Todas</option>
-          {PLATFORMS.map(p => <option key={p}>{p}</option>)}
+          {PLATFORMS_FILTER.map(p => <option key={p}>{p}</option>)}
         </select>
         <select className="input-neon text-sm w-36" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="">Todos</option>
@@ -91,7 +102,7 @@ export default function ProviderAccounts() {
             <table>
               <thead><tr>
                 <th>Proveedor</th><th>Correo</th><th>Pass</th><th>Plataforma</th>
-                <th>Pedido</th><th>Vence</th><th>Precio</th><th>Estado</th><th></th>
+                <th>Pedido</th><th>Vence</th><th>Costo compra</th><th>Estado</th><th></th>
               </tr></thead>
               <tbody>
                 {items.map(item => (
@@ -112,9 +123,9 @@ export default function ProviderAccounts() {
                       </button>
                     </td>
                     <td><span className="platform-badge">{item.platform}</span></td>
-                    <td className="text-xs font-mono">{item.order_number || '-'}</td>
+                    <td className="font-mono text-xs">{item.order_number || '-'}</td>
                     <td className="text-xs">{item.expiry_date ? new Date(item.expiry_date).toLocaleDateString('es') : '-'}</td>
-                    <td className="text-xs">{item.purchase_price ? `$${item.purchase_price}` : '-'}</td>
+                    <td className="text-xs font-semibold" style={{ color: '#ef4444' }}>{item.purchase_price ? `$${item.purchase_price}` : '-'}</td>
                     <td><span className={statusClass(item.status)}>{statusLabel(item.status)}</span></td>
                     <td>
                       <div className="flex gap-1.5">
@@ -142,18 +153,29 @@ export default function ProviderAccounts() {
                   {providers.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>
               </div>
-              {[['email','Correo'],['password','Contraseña'],['order_number','Número de pedido'],['duration','Duración'],['purchase_price','Precio compra']].map(([k,l]) => (
-                <div key={k}>
-                  <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>{l}</label>
-                  <input className="input-neon text-sm" value={form[k] || ''} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} />
-                </div>
-              ))}
+              <div className="col-span-2">
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Correo</label>
+                <input className="input-neon text-sm" value={form.email || ''} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+              </div>
               <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Contraseña</label>
+                <input className="input-neon text-sm" value={form.password || ''} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Número de pedido</label>
+                <input className="input-neon text-sm" value={form.order_number || ''} onChange={e => setForm(f => ({ ...f, order_number: e.target.value }))} />
+              </div>
+              <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Plataforma</label>
-                <select className="input-neon text-sm" value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value }))}>
-                  <option value="">Seleccionar</option>
-                  {PLATFORMS.map(p => <option key={p}>{p}</option>)}
-                </select>
+                <PlatformSelect value={form.platform} onChange={val => setForm(f => ({ ...f, platform: val }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Duración</label>
+                <input className="input-neon text-sm" value={form.duration || ''} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Costo de compra ($)</label>
+                <input type="number" step="0.01" className="input-neon text-sm" value={form.purchase_price || ''} onChange={e => setForm(f => ({ ...f, purchase_price: e.target.value }))} />
               </div>
               <div>
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha compra</label>
@@ -168,8 +190,11 @@ export default function ProviderAccounts() {
                 <textarea className="input-neon text-sm" rows={2} value={form.notes || ''} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
               </div>
             </div>
+            {error && <p className="text-xs mt-3 text-center" style={{ color: '#ef4444' }}>{error}</p>}
             <div className="flex gap-3 mt-5">
-              <button onClick={save} className="btn-primary flex-1 py-2.5 text-sm">Guardar</button>
+              <button onClick={save} disabled={saving} className="btn-primary flex-1 py-2.5 text-sm">
+                {saving ? 'Guardando...' : 'Guardar'}
+              </button>
               <button onClick={() => setModal(null)} className="btn-secondary flex-1 py-2.5 text-sm">Cancelar</button>
             </div>
           </div>

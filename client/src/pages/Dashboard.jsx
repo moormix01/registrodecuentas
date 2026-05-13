@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Package, ShoppingBag, Users, Crown, DollarSign, AlertTriangle, TrendingUp, Activity } from 'lucide-react';
+import { Package, ShoppingBag, Users, Crown, DollarSign, AlertTriangle, TrendingUp, TrendingDown, Activity } from 'lucide-react';
 import StatCard from '../components/StatCard';
 import { api, statusClass, statusLabel } from '../lib/api';
 
@@ -46,11 +46,33 @@ export default function Dashboard() {
         <StatCard label="Ventas Completas" value={sales.fullSales} icon={Crown} color="pink" sub={`${sales.fullActive} activas`} />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatCard label="Ingresos Totales" value={`$${sales.totalRevenue.toFixed(2)}`} icon={DollarSign} color="yellow" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatCard
+          label="Ingresos Totales"
+          value={`$${(sales.totalRevenue || 0).toFixed(2)}`}
+          icon={DollarSign}
+          color="green"
+          sub="Suma de todas las ventas"
+        />
+        <StatCard
+          label="Costos (Proveedores)"
+          value={`$${(sales.totalCost || 0).toFixed(2)}`}
+          icon={TrendingDown}
+          color="red"
+          sub="Precio de compra a proveedores"
+        />
+        <StatCard
+          label="Ganancia Neta"
+          value={`$${(sales.netProfit || 0).toFixed(2)}`}
+          icon={TrendingUp}
+          color={sales.netProfit >= 0 ? 'green' : 'red'}
+          sub="Ingresos − Costos"
+        />
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
         <StatCard label="Por Vencer (7d)" value={providerAccounts.expiring} icon={AlertTriangle} color="yellow" sub="Cuentas proveedores" />
         <StatCard label="Vencidas" value={providerAccounts.expired} icon={Activity} color="red" sub="Cuentas proveedores" />
-        <StatCard label="Total Vendidas" value={sales.profileSales + sales.fullSales} icon={TrendingUp} color="purple" sub="Perfiles + completas" />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">

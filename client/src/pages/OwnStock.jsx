@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Search, Copy, Pencil, Trash2, Check, Package } from 'lucide-react';
-import { api, PLATFORMS, statusClass, statusLabel, copyToClipboard } from '../lib/api';
+import { api, statusClass, statusLabel, copyToClipboard } from '../lib/api';
+import PlatformSelect from '../components/PlatformSelect';
 
 const EMPTY = { email: '', password: '', platform: '', duration: '', start_date: '', end_date: '', status: 'available', notes: '' };
 
@@ -14,6 +15,8 @@ export default function OwnStock() {
   const [copied, setCopied] = useState(null);
   const [confirmDel, setConfirmDel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   const load = async () => {
     setLoading(true);
@@ -34,19 +37,30 @@ export default function OwnStock() {
     setTimeout(() => setCopied(null), 1500);
   };
 
-  const openAdd = () => { setForm(EMPTY); setModal('add'); };
-  const openEdit = (item) => { setForm({ ...item, start_date: item.start_date?.split('T')[0] || '', end_date: item.end_date?.split('T')[0] || '' }); setModal('edit'); };
+  const openAdd = () => { setForm(EMPTY); setError(''); setModal('add'); };
+  const openEdit = (item) => {
+    setForm({ ...item, start_date: item.start_date?.split('T')[0] || '', end_date: item.end_date?.split('T')[0] || '' });
+    setError('');
+    setModal('edit');
+  };
 
   const save = async () => {
-    if (modal === 'add') await api.post('/own-accounts', form);
-    else await api.put(`/own-accounts/${form.id}`, form);
-    setModal(null); load();
+    if (!form.email || !form.password || !form.platform) { setError('Correo, contraseña y plataforma son requeridos'); return; }
+    setSaving(true); setError('');
+    try {
+      if (modal === 'add') await api.post('/own-accounts', form);
+      else await api.put(`/own-accounts/${form.id}`, form);
+      setModal(null); load();
+    } catch (e) { setError(e.message); }
+    setSaving(false);
   };
 
   const del = async (id) => {
     await api.delete(`/own-accounts/${id}`);
     setConfirmDel(null); load();
   };
+
+  const PLATFORMS_FILTER = ['Netflix','Disney+','HBO Max','Crunchyroll','Prime Video','Spotify','Apple TV+','Paramount+','Star+','DIRECTV GO','YouTube Premium'];
 
   return (
     <div className="space-y-5">
@@ -67,7 +81,7 @@ export default function OwnStock() {
         </div>
         <select className="input-neon text-sm w-40" value={filterPlatform} onChange={e => setFilterPlatform(e.target.value)}>
           <option value="">Todas las plataformas</option>
-          {PLATFORMS.map(p => <option key={p}>{p}</option>)}
+          {PLATFORMS_FILTER.map(p => <option key={p}>{p}</option>)}
         </select>
         <select className="input-neon text-sm w-36" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="">Todos los estados</option>
@@ -133,18 +147,21 @@ export default function OwnStock() {
           <div className="modal-box p-6">
             <h3 className="font-semibold text-white mb-5">{modal === 'add' ? 'Nueva cuenta' : 'Editar cuenta'}</h3>
             <div className="grid grid-cols-2 gap-4">
-              {[['email','Correo'],['password','Contraseña'],['duration','Duración']].map(([k,l]) => (
-                <div key={k} className={k === 'email' ? 'col-span-2' : ''}>
-                  <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>{l}</label>
-                  <input className="input-neon text-sm" value={form[k] || ''} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} />
-                </div>
-              ))}
+              <div className="col-span-2">
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Correo</label>
+                <input className="input-neon text-sm" value={form.email || ''} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+              </div>
               <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Contraseña</label>
+                <input className="input-neon text-sm" value={form.password || ''} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Duración</label>
+                <input className="input-neon text-sm" value={form.duration || ''} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} />
+              </div>
+              <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Plataforma</label>
-                <select className="input-neon text-sm" value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value }))}>
-                  <option value="">Seleccionar</option>
-                  {PLATFORMS.map(p => <option key={p}>{p}</option>)}
-                </select>
+                <PlatformSelect value={form.platform} onChange={val => setForm(f => ({ ...f, platform: val }))} />
               </div>
               <div>
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Estado</label>
@@ -166,8 +183,11 @@ export default function OwnStock() {
                 <textarea className="input-neon text-sm" rows={2} value={form.notes || ''} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
               </div>
             </div>
+            {error && <p className="text-xs mt-3 text-center" style={{ color: '#ef4444' }}>{error}</p>}
             <div className="flex gap-3 mt-5">
-              <button onClick={save} className="btn-primary flex-1 py-2.5 text-sm">Guardar</button>
+              <button onClick={save} disabled={saving} className="btn-primary flex-1 py-2.5 text-sm">
+                {saving ? 'Guardando...' : 'Guardar'}
+              </button>
               <button onClick={() => setModal(null)} className="btn-secondary flex-1 py-2.5 text-sm">Cancelar</button>
             </div>
           </div>

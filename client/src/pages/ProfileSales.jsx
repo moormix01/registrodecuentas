@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Plus, Search, Copy, Pencil, Trash2, Check, Users, ChevronDown, ChevronRight } from 'lucide-react';
-import { api, PLATFORMS, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
+import { api, statusClass, statusLabel, copyToClipboard, autoStatus } from '../lib/api';
+import PlatformSelect from '../components/PlatformSelect';
+import AccountSearch from '../components/AccountSearch';
 
-const EMPTY_GROUP = { email: '', password: '', platform: '', duration: '', profiles_count: 1, notes: '' };
-const EMPTY_SALE = { order_number: '', client_name: '', purchase_date: '', expiry_date: '', price: '', status: 'active', notes: '' };
+const EMPTY_GROUP = { email: '', password: '', platform: '', duration: '', profiles_count: 1, sale_price: '', account_source: 'manual', account_id: null, notes: '' };
+const EMPTY_SALE = { order_number: '', client_name: '', purchase_date: '', expiry_date: '', status: 'active', notes: '' };
 
 export default function ProfileSales() {
   const [groups, setGroups] = useState([]);
@@ -17,6 +19,8 @@ export default function ProfileSales() {
   const [copied, setCopied] = useState(null);
   const [confirmDel, setConfirmDel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   const load = async () => {
     setLoading(true);
@@ -32,22 +36,48 @@ export default function ProfileSales() {
   useEffect(() => { load(); }, []);
 
   const handleCopy = (text, key) => { copyToClipboard(text); setCopied(key); setTimeout(() => setCopied(null), 1500); };
-
   const salesForGroup = (gid) => sales.filter(s => s.group_id === gid);
-
   const filteredGroups = groups.filter(g =>
     !search || g.platform.toLowerCase().includes(search.toLowerCase()) || g.email.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleAccountSelect = (account) => {
+    setForm(f => ({
+      ...f,
+      email: account.email,
+      password: account.password,
+      platform: account.platform,
+      duration: account.duration || f.duration,
+      account_source: account.source,
+      account_id: account.id,
+    }));
+  };
+
   const saveGroup = async () => {
-    await api.post('/profile-groups', form);
-    setModal(null); load();
+    if (!form.email || !form.password || !form.platform) { setError('Correo, contraseña y plataforma son requeridos'); return; }
+    setSaving(true); setError('');
+    try {
+      await api.post('/profile-groups', form);
+      setModal(null); load();
+    } catch (e) { setError(e.message || 'Error al guardar'); }
+    setSaving(false);
   };
 
   const saveSale = async () => {
-    const payload = { ...saleForm, status: autoStatus(saleForm.expiry_date) };
-    await api.put(`/profile-sales/${editSale.id}`, payload);
-    setEditSale(null); load();
+    setSaving(true); setError('');
+    try {
+      const payload = {
+        order_number: saleForm.order_number || null,
+        client_name: saleForm.client_name || null,
+        purchase_date: saleForm.purchase_date || null,
+        expiry_date: saleForm.expiry_date || null,
+        status: autoStatus(saleForm.expiry_date) || 'active',
+        notes: saleForm.notes || null,
+      };
+      const res = await api.put(`/profile-sales/${editSale.id}`, payload);
+      if (res) { setEditSale(null); load(); }
+    } catch (e) { setError(e.message || 'Error al guardar'); }
+    setSaving(false);
   };
 
   const delGroup = async (id) => { await api.delete(`/profile-groups/${id}`); setConfirmDel(null); load(); };
@@ -59,7 +89,7 @@ export default function ProfileSales() {
           <h2 className="font-orbitron text-lg font-bold text-white">Ventas de Perfiles</h2>
           <p className="text-xs mt-0.5" style={{ color: 'rgba(226,232,240,0.4)' }}>Cuentas compartidas por perfil</p>
         </div>
-        <button onClick={() => { setForm(EMPTY_GROUP); setModal('add'); }} className="btn-primary flex items-center gap-2 px-4 py-2 text-sm">
+        <button onClick={() => { setForm(EMPTY_GROUP); setError(''); setModal('add'); }} className="btn-primary flex items-center gap-2 px-4 py-2 text-sm">
           <Plus size={15} /> Nueva cuenta grupal
         </button>
       </div>
@@ -101,7 +131,10 @@ export default function ProfileSales() {
                       </button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    {group.sale_price && (
+                      <span className="text-xs font-bold" style={{ color: '#10b981' }}>${group.sale_price}</span>
+                    )}
                     <span className="text-xs font-medium" style={{ color: 'rgba(226,232,240,0.5)' }}>
                       {groupSales.filter(s => s.client_name).length}/{group.profiles_count} perfiles
                     </span>
@@ -115,7 +148,7 @@ export default function ProfileSales() {
                   <div className="border-t" style={{ borderColor: 'rgba(0,212,255,0.08)' }}>
                     <table>
                       <thead><tr>
-                        <th>#</th><th>Pedido</th><th>Cliente</th><th>Compra</th><th>Vence</th><th>Precio</th><th>Estado</th><th></th>
+                        <th>#</th><th>Pedido</th><th>Cliente</th><th>Compra</th><th>Vence</th><th>Estado</th><th></th>
                       </tr></thead>
                       <tbody>
                         {groupSales.map((sale, idx) => (
@@ -125,10 +158,20 @@ export default function ProfileSales() {
                             <td className="font-medium text-sm">{sale.client_name || <span style={{ color: 'rgba(226,232,240,0.3)' }}>Sin asignar</span>}</td>
                             <td className="text-xs">{sale.purchase_date ? new Date(sale.purchase_date).toLocaleDateString('es') : '-'}</td>
                             <td className="text-xs">{sale.expiry_date ? new Date(sale.expiry_date).toLocaleDateString('es') : '-'}</td>
-                            <td className="text-xs">{sale.price ? `$${sale.price}` : '-'}</td>
                             <td><span className={statusClass(sale.status)}>{statusLabel(sale.status)}</span></td>
                             <td>
-                              <button onClick={() => { setSaleForm({ ...sale, purchase_date: sale.purchase_date?.split('T')[0] || '', expiry_date: sale.expiry_date?.split('T')[0] || '' }); setEditSale(sale); }} className="btn-secondary p-1.5">
+                              <button onClick={() => {
+                                setSaleForm({
+                                  order_number: sale.order_number || '',
+                                  client_name: sale.client_name || '',
+                                  purchase_date: sale.purchase_date?.split('T')[0] || '',
+                                  expiry_date: sale.expiry_date?.split('T')[0] || '',
+                                  status: sale.status || 'active',
+                                  notes: sale.notes || '',
+                                });
+                                setEditSale(sale);
+                                setError('');
+                              }} className="btn-secondary p-1.5">
                                 <Pencil size={13} />
                               </button>
                             </td>
@@ -147,33 +190,50 @@ export default function ProfileSales() {
       {modal === 'add' && (
         <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setModal(null)}>
           <div className="modal-box p-6">
-            <h3 className="font-semibold text-white mb-2">Nueva cuenta grupal</h3>
-            <p className="text-xs mb-5" style={{ color: 'rgba(226,232,240,0.4)' }}>El sistema creará automáticamente los perfiles indicados</p>
+            <h3 className="font-semibold text-white mb-1">Nueva cuenta grupal</h3>
+            <p className="text-xs mb-4" style={{ color: 'rgba(226,232,240,0.4)' }}>Busca una cuenta existente o ingresa los datos manualmente</p>
+
+            <div className="mb-4">
+              <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Buscar cuenta existente</label>
+              <AccountSearch onSelect={handleAccountSelect} />
+            </div>
+
             <div className="grid grid-cols-2 gap-4">
-              {[['email','Correo'],['password','Contraseña'],['duration','Duración']].map(([k,l]) => (
-                <div key={k} className={k === 'email' ? 'col-span-2' : ''}>
-                  <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>{l}</label>
-                  <input className="input-neon text-sm" value={form[k] || ''} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} />
-                </div>
-              ))}
+              <div className="col-span-2">
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Correo</label>
+                <input className="input-neon text-sm" value={form.email || ''} onChange={e => setForm(f => ({ ...f, email: e.target.value, account_source: 'manual', account_id: null }))} />
+              </div>
               <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Contraseña</label>
+                <input className="input-neon text-sm" value={form.password || ''} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Duración</label>
+                <input className="input-neon text-sm" value={form.duration || ''} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} />
+              </div>
+              <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Plataforma</label>
-                <select className="input-neon text-sm" value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value }))}>
-                  <option value="">Seleccionar</option>
-                  {PLATFORMS.map(p => <option key={p}>{p}</option>)}
-                </select>
+                <PlatformSelect value={form.platform} onChange={val => setForm(f => ({ ...f, platform: val }))} />
               </div>
               <div>
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Cantidad de perfiles</label>
                 <input type="number" min="1" max="20" className="input-neon text-sm" value={form.profiles_count} onChange={e => setForm(f => ({ ...f, profiles_count: parseInt(e.target.value) || 1 }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Precio de venta (total)</label>
+                <input type="number" step="0.01" className="input-neon text-sm" placeholder="$0.00" value={form.sale_price || ''} onChange={e => setForm(f => ({ ...f, sale_price: e.target.value }))} />
               </div>
               <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Notas</label>
                 <textarea className="input-neon text-sm" rows={2} value={form.notes || ''} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
               </div>
             </div>
+
+            {error && <p className="text-xs mt-3 text-center" style={{ color: '#ef4444' }}>{error}</p>}
             <div className="flex gap-3 mt-5">
-              <button onClick={saveGroup} className="btn-primary flex-1 py-2.5 text-sm">Crear grupo</button>
+              <button onClick={saveGroup} disabled={saving} className="btn-primary flex-1 py-2.5 text-sm">
+                {saving ? 'Creando...' : 'Crear grupo'}
+              </button>
               <button onClick={() => setModal(null)} className="btn-secondary flex-1 py-2.5 text-sm">Cancelar</button>
             </div>
           </div>
@@ -183,29 +243,34 @@ export default function ProfileSales() {
       {editSale && (
         <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setEditSale(null)}>
           <div className="modal-box p-6">
-            <h3 className="font-semibold text-white mb-5">Editar perfil</h3>
+            <h3 className="font-semibold text-white mb-5">Editar perfil #{editSale.id}</h3>
             <div className="grid grid-cols-2 gap-4">
-              {[['order_number','Número de pedido'],['client_name','Nombre del cliente'],['price','Precio']].map(([k,l]) => (
-                <div key={k}>
-                  <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>{l}</label>
-                  <input className="input-neon text-sm" value={saleForm[k] || ''} onChange={e => setSaleForm(f => ({ ...f, [k]: e.target.value }))} />
-                </div>
-              ))}
               <div>
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha compra</label>
-                <input type="date" className="input-neon text-sm" value={saleForm.purchase_date || ''} onChange={e => setSaleForm(f => ({ ...f, purchase_date: e.target.value }))} />
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Número de pedido</label>
+                <input className="input-neon text-sm" value={saleForm.order_number} onChange={e => setSaleForm(f => ({ ...f, order_number: e.target.value }))} />
               </div>
               <div>
-                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha vencimiento</label>
-                <input type="date" className="input-neon text-sm" value={saleForm.expiry_date || ''} onChange={e => setSaleForm(f => ({ ...f, expiry_date: e.target.value }))} />
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Nombre del cliente</label>
+                <input className="input-neon text-sm" value={saleForm.client_name} onChange={e => setSaleForm(f => ({ ...f, client_name: e.target.value }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha de compra</label>
+                <input type="date" className="input-neon text-sm" value={saleForm.purchase_date} onChange={e => setSaleForm(f => ({ ...f, purchase_date: e.target.value }))} />
+              </div>
+              <div>
+                <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Fecha de vencimiento</label>
+                <input type="date" className="input-neon text-sm" value={saleForm.expiry_date} onChange={e => setSaleForm(f => ({ ...f, expiry_date: e.target.value }))} />
               </div>
               <div className="col-span-2">
                 <label className="block text-xs mb-1.5" style={{ color: 'rgba(226,232,240,0.5)' }}>Notas</label>
-                <textarea className="input-neon text-sm" rows={2} value={saleForm.notes || ''} onChange={e => setSaleForm(f => ({ ...f, notes: e.target.value }))} />
+                <textarea className="input-neon text-sm" rows={2} value={saleForm.notes} onChange={e => setSaleForm(f => ({ ...f, notes: e.target.value }))} />
               </div>
             </div>
+            {error && <p className="text-xs mt-3 text-center" style={{ color: '#ef4444' }}>{error}</p>}
             <div className="flex gap-3 mt-5">
-              <button onClick={saveSale} className="btn-primary flex-1 py-2.5 text-sm">Guardar</button>
+              <button onClick={saveSale} disabled={saving} className="btn-primary flex-1 py-2.5 text-sm">
+                {saving ? 'Guardando...' : 'Guardar'}
+              </button>
               <button onClick={() => setEditSale(null)} className="btn-secondary flex-1 py-2.5 text-sm">Cancelar</button>
             </div>
           </div>
