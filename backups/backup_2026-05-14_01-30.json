@@ -1,0 +1,358 @@
+{
+  "generated_at": "2026-05-14T01:30:03.370Z",
+  "note": "Passwords excluded from backups for security",
+  "own_accounts": [
+    {
+      "id": 18,
+      "email": "per@eilish.space",
+      "platform": "HBO Max",
+      "duration": "1",
+      "start_date": "2025-05-13T00:00:00.000Z",
+      "end_date": "2026-06-13T00:00:00.000Z",
+      "status": "sold",
+      "notes": "cambiar a mi nuevo dominio el mes de junio",
+      "created_at": "2026-05-14T00:52:21.168Z"
+    },
+    {
+      "id": 19,
+      "email": "pera10@eilish.space",
+      "platform": "HBO Max",
+      "duration": "1",
+      "start_date": "2026-05-13T00:00:00.000Z",
+      "end_date": "2026-06-13T00:00:00.000Z",
+      "status": "sold",
+      "notes": "modificar el correo al dominio nuevo en junio",
+      "created_at": "2026-05-14T00:57:11.753Z"
+    }
+  ],
+  "providers": [
+    {
+      "id": 1,
+      "name": "proovedor india",
+      "contact": "",
+      "notes": "",
+      "created_at": "2026-05-13T16:31:02.782Z"
+    },
+    {
+      "id": 2,
+      "name": "Z2U",
+      "contact": "",
+      "notes": "",
+      "created_at": "2026-05-13T18:11:34.341Z"
+    },
+    {
+      "id": 3,
+      "name": "NVG",
+      "contact": "",
+      "notes": "",
+      "created_at": "2026-05-13T19:13:06.972Z"
+    }
+  ],
+  "provider_accounts": [
+    {
+      "id": 1,
+      "provider_id": 1,
+      "email": "Ftfffhc25522@outlook.com",
+      "platform": "Prime Video",
+      "duration": "12",
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2027-05-13T00:00:00.000Z",
+      "purchase_price": "4.00",
+      "status": "in_use",
+      "notes": "acceso al correo: Prime@1234",
+      "created_at": "2026-05-13T16:31:49.890Z"
+    },
+    {
+      "id": 2,
+      "provider_id": 2,
+      "email": "tchan52578@gmail.com",
+      "platform": "VIKI RAKUTEN",
+      "duration": "3",
+      "purchase_date": "2026-05-12T00:00:00.000Z",
+      "expiry_date": "2026-08-12T00:00:00.000Z",
+      "purchase_price": "1.06",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-13T17:39:30.341Z"
+    },
+    {
+      "id": 3,
+      "provider_id": 2,
+      "email": "connysteuer@gmx.de",
+      "platform": "RTL+",
+      "duration": "3",
+      "purchase_date": "2026-04-28T00:00:00.000Z",
+      "expiry_date": "2026-07-28T00:00:00.000Z",
+      "purchase_price": "0.00",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-13T18:26:05.307Z"
+    },
+    {
+      "id": 4,
+      "provider_id": 3,
+      "email": "maboni6588+dno49@gmail.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "purchase_price": "3.27",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-13T19:13:54.232Z"
+    }
+  ],
+  "profile_groups": [
+    {
+      "id": 2,
+      "email": "maboni6588+dno49@gmail.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.88",
+      "sale_price": "13.16",
+      "account_source": "provider",
+      "account_id": 4,
+      "notes": "",
+      "created_at": "2026-05-13T19:14:56.807Z"
+    }
+  ],
+  "profile_sales": [
+    {
+      "id": 1,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 2,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 3,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 4,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 5,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 6,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 7,
+      "group_id": 1,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T15:29:19.479Z"
+    },
+    {
+      "id": 8,
+      "group_id": 2,
+      "order_number": "842445336424353792",
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 9,
+      "group_id": 2,
+      "order_number": "842675793850142720",
+      "client_name": null,
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 10,
+      "group_id": 2,
+      "order_number": "842670611527503872",
+      "client_name": null,
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 11,
+      "group_id": 2,
+      "order_number": "842634153630502912",
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 12,
+      "group_id": 2,
+      "order_number": "842570814711795712",
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 13,
+      "group_id": 2,
+      "order_number": "842542939203833856",
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 14,
+      "group_id": 2,
+      "order_number": "842495627677011968",
+      "client_name": null,
+      "purchase_date": null,
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-13T19:14:56.807Z"
+    }
+  ],
+  "full_account_sales": [
+    {
+      "id": 1,
+      "email": "Ftfffhc25522@outlook.com",
+      "platform": "Prime Video",
+      "order_number": "842392159821893632",
+      "client_name": "",
+      "duration": "12",
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2027-05-13T00:00:00.000Z",
+      "sale_price": "18.79",
+      "account_source": "provider",
+      "account_id": 1,
+      "status": "active",
+      "notes": "acceso al correo: Prime@1234",
+      "created_at": "2026-05-13T16:33:16.350Z"
+    },
+    {
+      "id": 2,
+      "email": "tchan52578@gmail.com",
+      "platform": "VIKI RAKUTEN",
+      "order_number": "842221162917400576",
+      "client_name": "",
+      "duration": "3",
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2026-08-13T00:00:00.000Z",
+      "sale_price": "3.76",
+      "account_source": "provider",
+      "account_id": 2,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-13T18:22:58.958Z"
+    },
+    {
+      "id": 3,
+      "email": "connysteuer@gmx.de",
+      "platform": "RTL+",
+      "order_number": "836484869285613568",
+      "client_name": "",
+      "duration": "3",
+      "purchase_date": "2026-04-28T00:00:00.000Z",
+      "expiry_date": "2026-07-28T00:00:00.000Z",
+      "sale_price": "0.00",
+      "account_source": "provider",
+      "account_id": 3,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-13T18:26:52.734Z"
+    },
+    {
+      "id": 4,
+      "email": "per@eilish.space",
+      "platform": "HBO Max",
+      "order_number": "Z8613240373 ",
+      "client_name": "",
+      "duration": "1",
+      "purchase_date": "2025-05-13T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "sale_price": "2.50",
+      "account_source": "own",
+      "account_id": 18,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-14T00:53:09.561Z"
+    },
+    {
+      "id": 5,
+      "email": "pera10@eilish.space",
+      "platform": "HBO Max",
+      "order_number": "Z8480492659 ",
+      "client_name": "",
+      "duration": "1",
+      "purchase_date": "2026-05-13T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "sale_price": "2.50",
+      "account_source": "own",
+      "account_id": 19,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-14T00:59:12.507Z"
+    }
+  ]
+}
