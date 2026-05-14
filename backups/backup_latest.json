@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T00:56:06.781Z",
+  "generated_at": "2026-05-14T00:58:54.293Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -12,6 +12,17 @@
       "status": "sold",
       "notes": "cambiar a mi nuevo dominio el mes de junio",
       "created_at": "2026-05-14T00:52:21.168Z"
+    },
+    {
+      "id": 19,
+      "email": "pera10@eilish.space",
+      "platform": "HBO Max",
+      "duration": "1",
+      "start_date": "2026-05-13T00:00:00.000Z",
+      "end_date": "2026-06-13T00:00:00.000Z",
+      "status": "sold",
+      "notes": "modificar el correo al dominio nuevo en junio",
+      "created_at": "2026-05-14T00:57:11.753Z"
     }
   ],
   "providers": [
