@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T01:55:05.093Z",
+  "generated_at": "2026-05-14T01:57:40.658Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -100,6 +100,19 @@
       "status": "in_use",
       "notes": "",
       "created_at": "2026-05-13T19:13:54.232Z"
+    },
+    {
+      "id": 5,
+      "provider_id": 3,
+      "email": "Wolvptontr@exprexs.co ",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "purchase_price": "3.25",
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-14T01:57:37.750Z"
     }
   ],
   "profile_groups": [
