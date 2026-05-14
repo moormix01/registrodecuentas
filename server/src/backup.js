@@ -66,10 +66,10 @@ async function pushBackup() {
     for (const filePath of [latest, dated]) {
       let sha;
       try {
-        const existing = await githubRequest('GET', filePath, token, repo, null);
+        const existing = await githubRequest('GET', filePath+'?ref=backups', token, repo, null);
         sha = existing.sha;
       } catch {}
-      await githubRequest('PUT', filePath, token, repo, { message: msg, content, sha, branch: 'main' });
+      await githubRequest('PUT', filePath, token, repo, { message: msg, content, sha, branch: 'backups' });
     }
     console.log(`[backup] ✅ Backup guardado en GitHub: ${dated}`);
   } catch (err) {
