@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T01:57:40.658Z",
+  "generated_at": "2026-05-14T01:58:39.059Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -110,7 +110,7 @@
       "purchase_date": "2026-05-14T00:00:00.000Z",
       "expiry_date": "2026-06-13T00:00:00.000Z",
       "purchase_price": "3.25",
-      "status": "active",
+      "status": "in_use",
       "notes": "",
       "created_at": "2026-05-14T01:57:37.750Z"
     }
@@ -128,6 +128,19 @@
       "account_id": 4,
       "notes": "",
       "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 4,
+      "email": "Wolvptontr@exprexs.co ",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.88",
+      "sale_price": "13.16",
+      "account_source": "provider",
+      "account_id": 5,
+      "notes": "",
+      "created_at": "2026-05-14T01:58:37.319Z"
     }
   ],
   "profile_sales": [
@@ -284,6 +297,160 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-13T19:14:56.807Z"
+    },
+    {
+      "id": 15,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 16,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 17,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 18,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 19,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 20,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 21,
+      "group_id": 3,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:10.955Z"
+    },
+    {
+      "id": 22,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
+    },
+    {
+      "id": 23,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
+    },
+    {
+      "id": 24,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
+    },
+    {
+      "id": 25,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
+    },
+    {
+      "id": 26,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
+    },
+    {
+      "id": 27,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
+    },
+    {
+      "id": 28,
+      "group_id": 4,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-13T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-14T01:58:37.319Z"
     }
   ],
   "full_account_sales": [
