@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-15T14:42:28.319Z",
+  "generated_at": "2026-05-15T20:42:28.304Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -53,6 +53,13 @@
       "contact": "",
       "notes": "",
       "created_at": "2026-05-14T19:55:19.589Z"
+    },
+    {
+      "id": 5,
+      "name": "G2G",
+      "contact": "",
+      "notes": "",
+      "created_at": "2026-05-15T16:36:25.372Z"
     }
   ],
   "provider_accounts": [
@@ -207,8 +214,8 @@
       "duration": "1",
       "purchase_date": "2026-05-13T00:00:00.000Z",
       "expiry_date": "2026-06-13T00:00:00.000Z",
-      "purchase_price": null,
-      "status": "in_use",
+      "purchase_price": "1.80",
+      "status": "active",
       "notes": "",
       "created_at": "2026-05-15T05:25:06.273Z"
     },
@@ -224,6 +231,84 @@
       "status": "in_use",
       "notes": "",
       "created_at": "2026-05-15T05:26:14.503Z"
+    },
+    {
+      "id": 14,
+      "provider_id": 2,
+      "email": "pigboss2010@gmail.com",
+      "platform": "InVideo",
+      "duration": "1",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "purchase_price": "1.91",
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-15T16:17:10.765Z"
+    },
+    {
+      "id": 15,
+      "provider_id": 5,
+      "email": "herbst.b.m@t-online.de",
+      "platform": "RTL+",
+      "duration": "3",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-08-12T00:00:00.000Z",
+      "purchase_price": "1.05",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-15T16:37:08.051Z"
+    },
+    {
+      "id": 16,
+      "provider_id": 2,
+      "email": "selenia21h@yahoo.com",
+      "platform": "VIKI RAKUTEN",
+      "duration": "3",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-08-12T00:00:00.000Z",
+      "purchase_price": "1.05",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-15T16:55:07.360Z"
+    },
+    {
+      "id": 17,
+      "provider_id": 3,
+      "email": "Footlocker@ouclo.net",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "purchase_price": "3.27",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-15T20:25:54.062Z"
+    },
+    {
+      "id": 18,
+      "provider_id": 3,
+      "email": "RichardJones0203223@onlinepremm.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "purchase_price": "3.27",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-15T20:35:08.585Z"
+    },
+    {
+      "id": 19,
+      "provider_id": 3,
+      "email": "ChristopherFitzgerald0142905@villaweytv.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "purchase_price": "3.27",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-15T20:40:50.234Z"
     }
   ],
   "profile_groups": [
@@ -291,6 +376,45 @@
       "account_id": 11,
       "notes": "",
       "created_at": "2026-05-15T05:31:10.287Z"
+    },
+    {
+      "id": 8,
+      "email": "Footlocker@ouclo.net",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.86",
+      "sale_price": "13.02",
+      "account_source": "provider",
+      "account_id": 17,
+      "notes": "",
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 9,
+      "email": "RichardJones0203223@onlinepremm.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.88",
+      "sale_price": "13.16",
+      "account_source": "provider",
+      "account_id": 18,
+      "notes": "",
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 10,
+      "email": "ChristopherFitzgerald0142905@villaweytv.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.88",
+      "sale_price": "13.16",
+      "account_source": "provider",
+      "account_id": 19,
+      "notes": "",
+      "created_at": "2026-05-15T20:41:11.141Z"
     }
   ],
   "profile_sales": [
@@ -667,6 +791,237 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-15T05:31:10.287Z"
+    },
+    {
+      "id": 35,
+      "group_id": 8,
+      "order_number": "842986052863004672",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 36,
+      "group_id": 8,
+      "order_number": "843045376075370496",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 37,
+      "group_id": 8,
+      "order_number": "843061059060371456",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 38,
+      "group_id": 8,
+      "order_number": "843191061324107776",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 39,
+      "group_id": 8,
+      "order_number": "843278467540848640",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 40,
+      "group_id": 8,
+      "order_number": "843279152378417152",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 41,
+      "group_id": 8,
+      "order_number": "843315505942106112",
+      "client_name": null,
+      "purchase_date": "2026-05-14T00:00:00.000Z",
+      "expiry_date": "2026-06-14T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:26:21.990Z"
+    },
+    {
+      "id": 42,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 43,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 44,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 45,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 46,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 47,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 48,
+      "group_id": 9,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:35:29.270Z"
+    },
+    {
+      "id": 49,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
+    },
+    {
+      "id": 50,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
+    },
+    {
+      "id": 51,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
+    },
+    {
+      "id": 52,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
+    },
+    {
+      "id": 53,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
+    },
+    {
+      "id": 54,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
+    },
+    {
+      "id": 55,
+      "group_id": 10,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-06-15T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-15T20:41:11.141Z"
     }
   ],
   "full_account_sales": [
@@ -829,6 +1184,38 @@
       "status": "active",
       "notes": "",
       "created_at": "2026-05-15T01:53:38.847Z"
+    },
+    {
+      "id": 11,
+      "email": "herbst.b.m@t-online.de",
+      "platform": "RTL+",
+      "order_number": "843260414795059200",
+      "client_name": "gamsgo",
+      "duration": "3",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-08-12T00:00:00.000Z",
+      "sale_price": "7.05",
+      "account_source": "provider",
+      "account_id": 15,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-15T16:39:15.870Z"
+    },
+    {
+      "id": 12,
+      "email": "selenia21h@yahoo.com",
+      "platform": "VIKI RAKUTEN",
+      "order_number": "Janelle07! ",
+      "client_name": "gamsgo",
+      "duration": "3",
+      "purchase_date": "2026-05-15T00:00:00.000Z",
+      "expiry_date": "2026-08-12T00:00:00.000Z",
+      "sale_price": "4.00",
+      "account_source": "provider",
+      "account_id": 16,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-15T16:56:12.135Z"
     }
   ]
 }
