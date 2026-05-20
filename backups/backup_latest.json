@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T20:42:28.380Z",
+  "generated_at": "2026-05-20T02:42:28.344Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -363,7 +363,7 @@
       "purchase_date": "2026-05-17T00:00:00.000Z",
       "expiry_date": "2026-06-16T00:00:00.000Z",
       "purchase_price": "3.57",
-      "status": "active",
+      "status": "in_use",
       "notes": "",
       "created_at": "2026-05-17T03:34:10.194Z"
     },
@@ -511,6 +511,19 @@
       "account_id": 22,
       "notes": "",
       "created_at": "2026-05-19T02:18:09.114Z"
+    },
+    {
+      "id": 16,
+      "email": "liga@digitalvnhe.com",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.88",
+      "sale_price": "13.16",
+      "account_source": "provider",
+      "account_id": 23,
+      "notes": "",
+      "created_at": "2026-05-19T22:48:36.072Z"
     }
   ],
   "profile_sales": [
@@ -1327,6 +1340,83 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-19T02:18:09.114Z"
+    },
+    {
+      "id": 75,
+      "group_id": 16,
+      "order_number": "844824264170409984",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
+    },
+    {
+      "id": 76,
+      "group_id": 16,
+      "order_number": "843937448923893760",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
+    },
+    {
+      "id": 77,
+      "group_id": 16,
+      "order_number": "844029590132363264",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
+    },
+    {
+      "id": 78,
+      "group_id": 16,
+      "order_number": "844083773699133440",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
+    },
+    {
+      "id": 79,
+      "group_id": 16,
+      "order_number": "844448981718274048",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
+    },
+    {
+      "id": 80,
+      "group_id": 16,
+      "order_number": "844677084558266368",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
+    },
+    {
+      "id": 81,
+      "group_id": 16,
+      "order_number": "844818792449183744",
+      "client_name": null,
+      "purchase_date": "2026-05-17T00:00:00.000Z",
+      "expiry_date": "2026-06-16T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-19T22:48:36.072Z"
     }
   ],
   "full_account_sales": [
