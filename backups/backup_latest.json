@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T20:42:28.396Z",
+  "generated_at": "2026-05-22T02:42:28.408Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -45,6 +45,28 @@
       "status": "sold",
       "notes": "",
       "created_at": "2026-05-21T18:06:01.619Z"
+    },
+    {
+      "id": 23,
+      "email": "vix26@jacck.com",
+      "platform": "VIX",
+      "duration": "1",
+      "start_date": "2026-05-21T00:00:00.000Z",
+      "end_date": null,
+      "status": "sold",
+      "notes": "",
+      "created_at": "2026-05-22T02:19:00.012Z"
+    },
+    {
+      "id": 24,
+      "email": "vix19@jacck.com",
+      "platform": "VIX",
+      "duration": "1",
+      "start_date": "2026-05-21T00:00:00.000Z",
+      "end_date": null,
+      "status": "sold",
+      "notes": "",
+      "created_at": "2026-05-22T02:20:35.618Z"
     }
   ],
   "providers": [
@@ -416,6 +438,19 @@
       "status": "in_use",
       "notes": "",
       "created_at": "2026-05-21T18:04:27.929Z"
+    },
+    {
+      "id": 28,
+      "provider_id": 3,
+      "email": "ron566D@playlis.com.co",
+      "platform": "Disney+",
+      "duration": "1",
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "purchase_price": "3.27",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-22T01:45:47.776Z"
     }
   ],
   "profile_groups": [
@@ -613,6 +648,19 @@
       "account_id": 22,
       "notes": "",
       "created_at": "2026-05-21T18:06:25.250Z"
+    },
+    {
+      "id": 22,
+      "email": "ron566D@playlis.com.co",
+      "platform": "Disney+",
+      "duration": "1",
+      "profiles_count": 7,
+      "price_per_profile": "1.87",
+      "sale_price": "13.09",
+      "account_source": "provider",
+      "account_id": 28,
+      "notes": "",
+      "created_at": "2026-05-22T01:48:30.676Z"
     }
   ],
   "profile_sales": [
@@ -1627,6 +1675,83 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-21T18:06:25.250Z"
+    },
+    {
+      "id": 95,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 96,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 97,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 98,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 99,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 100,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 101,
+      "group_id": 22,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": "2026-06-21T00:00:00.000Z",
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T01:48:30.676Z"
     }
   ],
   "full_account_sales": [
@@ -1837,6 +1962,38 @@
       "status": "active",
       "notes": "",
       "created_at": "2026-05-19T20:11:47.291Z"
+    },
+    {
+      "id": 14,
+      "email": "vix26@jacck.com",
+      "platform": "VIX",
+      "order_number": "",
+      "client_name": "Z2U",
+      "duration": "1",
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": null,
+      "sale_price": "2.00",
+      "account_source": "own",
+      "account_id": 23,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-22T02:19:47.384Z"
+    },
+    {
+      "id": 15,
+      "email": "vix19@jacck.com",
+      "platform": "VIX",
+      "order_number": "",
+      "client_name": "GAMSGO",
+      "duration": "1",
+      "purchase_date": "2026-05-21T00:00:00.000Z",
+      "expiry_date": null,
+      "sale_price": "2.00",
+      "account_source": "own",
+      "account_id": 24,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-22T02:20:54.842Z"
     }
   ]
 }
