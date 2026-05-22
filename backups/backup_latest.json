@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T14:42:28.405Z",
+  "generated_at": "2026-05-22T20:42:28.404Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -67,6 +67,28 @@
       "status": "sold",
       "notes": "",
       "created_at": "2026-05-22T02:20:35.618Z"
+    },
+    {
+      "id": 25,
+      "email": "apple01@oficialjack.online",
+      "platform": "Appe Tv",
+      "duration": "1",
+      "start_date": "2026-05-22T00:00:00.000Z",
+      "end_date": null,
+      "status": "sold",
+      "notes": "",
+      "created_at": "2026-05-22T19:10:21.458Z"
+    },
+    {
+      "id": 26,
+      "email": "apple02@oficialjack.online",
+      "platform": "Appe Tv",
+      "duration": "3",
+      "start_date": "2026-05-22T00:00:00.000Z",
+      "end_date": null,
+      "status": "available",
+      "notes": "",
+      "created_at": "2026-05-22T19:10:53.222Z"
     }
   ],
   "providers": [
@@ -674,6 +696,19 @@
       "account_id": 28,
       "notes": "",
       "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 23,
+      "email": "apple01@oficialjack.online",
+      "platform": "Appe Tv",
+      "duration": "1",
+      "profiles_count": 4,
+      "price_per_profile": "1.88",
+      "sale_price": "7.52",
+      "account_source": "own",
+      "account_id": 25,
+      "notes": "",
+      "created_at": "2026-05-22T19:11:31.475Z"
     }
   ],
   "profile_sales": [
@@ -1765,6 +1800,50 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-22T01:48:30.676Z"
+    },
+    {
+      "id": 102,
+      "group_id": 23,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-22T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T19:11:31.475Z"
+    },
+    {
+      "id": 103,
+      "group_id": 23,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-22T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T19:11:31.475Z"
+    },
+    {
+      "id": 104,
+      "group_id": 23,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-22T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T19:11:31.475Z"
+    },
+    {
+      "id": 105,
+      "group_id": 23,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-22T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-22T19:11:31.475Z"
     }
   ],
   "full_account_sales": [
