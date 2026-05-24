@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T14:42:28.461Z",
+  "generated_at": "2026-05-24T20:42:28.453Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -590,6 +590,32 @@
       "status": "in_use",
       "notes": "",
       "created_at": "2026-05-23T22:06:22.991Z"
+    },
+    {
+      "id": 38,
+      "provider_id": 2,
+      "email": "morgan.thorn@gmail.com",
+      "platform": "NBA",
+      "duration": "3",
+      "purchase_date": "2026-05-24T00:00:00.000Z",
+      "expiry_date": "2026-08-24T00:00:00.000Z",
+      "purchase_price": "1.98",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-24T14:59:35.617Z"
+    },
+    {
+      "id": 39,
+      "provider_id": 2,
+      "email": "evanille1719@gmail.com",
+      "platform": "VIKI RAKUTEN",
+      "duration": "3",
+      "purchase_date": "2026-05-24T00:00:00.000Z",
+      "expiry_date": "2026-08-24T00:00:00.000Z",
+      "purchase_price": null,
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-24T17:26:44.654Z"
     }
   ],
   "profile_groups": [
@@ -2520,6 +2546,38 @@
       "status": "active",
       "notes": "",
       "created_at": "2026-05-23T19:36:27.728Z"
+    },
+    {
+      "id": 21,
+      "email": "morgan.thorn@gmail.com",
+      "platform": "NBA",
+      "order_number": "846364675171028992",
+      "client_name": "",
+      "duration": "3",
+      "purchase_date": "2026-05-24T00:00:00.000Z",
+      "expiry_date": "2026-08-24T00:00:00.000Z",
+      "sale_price": "9.00",
+      "account_source": "provider",
+      "account_id": 38,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-24T15:00:19.068Z"
+    },
+    {
+      "id": 22,
+      "email": "evanille1719@gmail.com",
+      "platform": "VIKI RAKUTEN",
+      "order_number": "846338954444804096",
+      "client_name": "",
+      "duration": "3",
+      "purchase_date": "2026-05-24T00:00:00.000Z",
+      "expiry_date": "2026-08-24T00:00:00.000Z",
+      "sale_price": "4.00",
+      "account_source": "provider",
+      "account_id": 39,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-24T17:27:07.939Z"
     }
   ]
 }
