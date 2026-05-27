@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-27T14:42:28.476Z",
+  "generated_at": "2026-05-27T20:42:28.513Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -668,6 +668,32 @@
       "status": "in_use",
       "notes": "",
       "created_at": "2026-05-27T02:25:34.250Z"
+    },
+    {
+      "id": 44,
+      "provider_id": 2,
+      "email": "adrianlbetts@gmail.com",
+      "platform": "NBA",
+      "duration": "3",
+      "purchase_date": "2026-05-27T00:00:00.000Z",
+      "expiry_date": "2026-08-27T00:00:00.000Z",
+      "purchase_price": null,
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-27T17:12:09.185Z"
+    },
+    {
+      "id": 45,
+      "provider_id": 5,
+      "email": "sarah6173mud@manthulgemoy.com",
+      "platform": "YouTube Premium",
+      "duration": "1",
+      "purchase_date": "2026-05-27T00:00:00.000Z",
+      "expiry_date": "2026-06-27T00:00:00.000Z",
+      "purchase_price": "0.80",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-27T17:58:06.456Z"
     }
   ],
   "profile_groups": [
@@ -2842,6 +2868,38 @@
       "status": "active",
       "notes": "",
       "created_at": "2026-05-27T02:26:08.484Z"
+    },
+    {
+      "id": 25,
+      "email": "adrianlbetts@gmail.com",
+      "platform": "NBA",
+      "order_number": "847427585414664192",
+      "client_name": "",
+      "duration": "3",
+      "purchase_date": "2026-05-27T00:00:00.000Z",
+      "expiry_date": "2026-08-27T00:00:00.000Z",
+      "sale_price": "8.50",
+      "account_source": "provider",
+      "account_id": 44,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-27T17:12:30.881Z"
+    },
+    {
+      "id": 26,
+      "email": "sarah6173mud@manthulgemoy.com",
+      "platform": "YouTube Premium",
+      "order_number": "847370193704456192",
+      "client_name": "",
+      "duration": "1",
+      "purchase_date": "2026-05-27T00:00:00.000Z",
+      "expiry_date": "2026-06-27T00:00:00.000Z",
+      "sale_price": "2.00",
+      "account_source": "provider",
+      "account_id": 45,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-27T17:58:54.176Z"
     }
   ]
 }
