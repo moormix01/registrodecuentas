@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-29T14:42:28.513Z",
+  "generated_at": "2026-05-29T20:42:28.545Z",
   "note": "Passwords excluded from backups for security",
   "own_accounts": [
     {
@@ -41,7 +41,7 @@
       "platform": "VIX",
       "duration": "3",
       "start_date": "2026-05-21T00:00:00.000Z",
-      "end_date": null,
+      "end_date": "2026-08-29T00:00:00.000Z",
       "status": "sold",
       "notes": "",
       "created_at": "2026-05-21T18:06:01.619Z"
@@ -89,6 +89,17 @@
       "status": "available",
       "notes": "",
       "created_at": "2026-05-22T19:10:53.222Z"
+    },
+    {
+      "id": 27,
+      "email": "vix38@jacck.com",
+      "platform": "VIX",
+      "duration": "3",
+      "start_date": "2026-05-29T00:00:00.000Z",
+      "end_date": null,
+      "status": "sold",
+      "notes": "",
+      "created_at": "2026-05-29T18:22:44.317Z"
     }
   ],
   "providers": [
@@ -720,6 +731,32 @@
       "status": "active",
       "notes": "",
       "created_at": "2026-05-28T17:50:07.838Z"
+    },
+    {
+      "id": 48,
+      "provider_id": null,
+      "email": "jeilaestebar27@gmail.com",
+      "platform": "VIKI RAKUTEN",
+      "duration": "3",
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": "2026-08-29T00:00:00.000Z",
+      "purchase_price": "1.10",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-29T17:33:37.902Z"
+    },
+    {
+      "id": 49,
+      "provider_id": 2,
+      "email": "miki1972@t-online.de",
+      "platform": "DAZN",
+      "duration": "1",
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": "2026-06-29T00:00:00.000Z",
+      "purchase_price": "1.15",
+      "status": "in_use",
+      "notes": "",
+      "created_at": "2026-05-29T18:04:30.411Z"
     }
   ],
   "profile_groups": [
@@ -1021,6 +1058,19 @@
       "account_id": 42,
       "notes": "",
       "created_at": "2026-05-26T17:20:18.312Z"
+    },
+    {
+      "id": 30,
+      "email": "vix38@jacck.com",
+      "platform": "VIX",
+      "duration": "3",
+      "profiles_count": 5,
+      "price_per_profile": "5.00",
+      "sale_price": "25.00",
+      "account_source": "own",
+      "account_id": 27,
+      "notes": "",
+      "created_at": "2026-05-29T18:24:38.369Z"
     }
   ],
   "profile_sales": [
@@ -1984,7 +2034,7 @@
     {
       "id": 90,
       "group_id": 21,
-      "order_number": null,
+      "order_number": "848222067626217472",
       "client_name": null,
       "purchase_date": "2026-05-21T00:00:00.000Z",
       "expiry_date": null,
@@ -1995,7 +2045,7 @@
     {
       "id": 91,
       "group_id": 21,
-      "order_number": null,
+      "order_number": "845908727558180864",
       "client_name": null,
       "purchase_date": "2026-05-21T00:00:00.000Z",
       "expiry_date": null,
@@ -2006,7 +2056,7 @@
     {
       "id": 92,
       "group_id": 21,
-      "order_number": null,
+      "order_number": "846927917534547968",
       "client_name": null,
       "purchase_date": "2026-05-21T00:00:00.000Z",
       "expiry_date": null,
@@ -2017,7 +2067,7 @@
     {
       "id": 93,
       "group_id": 21,
-      "order_number": null,
+      "order_number": "848312126773792768",
       "client_name": null,
       "purchase_date": "2026-05-21T00:00:00.000Z",
       "expiry_date": null,
@@ -2028,7 +2078,7 @@
     {
       "id": 94,
       "group_id": 21,
-      "order_number": null,
+      "order_number": "845484858078793728",
       "client_name": null,
       "purchase_date": "2026-05-21T00:00:00.000Z",
       "expiry_date": null,
@@ -2508,6 +2558,61 @@
       "status": "active",
       "notes": null,
       "created_at": "2026-05-26T17:20:18.312Z"
+    },
+    {
+      "id": 138,
+      "group_id": 30,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-29T18:24:38.369Z"
+    },
+    {
+      "id": 139,
+      "group_id": 30,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-29T18:24:38.369Z"
+    },
+    {
+      "id": 140,
+      "group_id": 30,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-29T18:24:38.369Z"
+    },
+    {
+      "id": 141,
+      "group_id": 30,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-29T18:24:38.369Z"
+    },
+    {
+      "id": 142,
+      "group_id": 30,
+      "order_number": null,
+      "client_name": null,
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": null,
+      "status": "active",
+      "notes": null,
+      "created_at": "2026-05-29T18:24:38.369Z"
     }
   ],
   "full_account_sales": [
@@ -2942,6 +3047,38 @@
       "status": "active",
       "notes": "",
       "created_at": "2026-05-28T17:33:35.875Z"
+    },
+    {
+      "id": 28,
+      "email": "jeilaestebar27@gmail.com",
+      "platform": "VIKI RAKUTEN",
+      "order_number": "848318038724972544",
+      "client_name": "",
+      "duration": "3",
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": "2026-08-29T00:00:00.000Z",
+      "sale_price": "4.00",
+      "account_source": "provider",
+      "account_id": 48,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-29T17:35:38.620Z"
+    },
+    {
+      "id": 29,
+      "email": "miki1972@t-online.de",
+      "platform": "DAZN",
+      "order_number": "848354250022064128",
+      "client_name": "",
+      "duration": "1",
+      "purchase_date": "2026-05-29T00:00:00.000Z",
+      "expiry_date": "2026-06-29T00:00:00.000Z",
+      "sale_price": "2.50",
+      "account_source": "provider",
+      "account_id": 49,
+      "status": "active",
+      "notes": "",
+      "created_at": "2026-05-29T18:07:53.623Z"
     }
   ]
 }
