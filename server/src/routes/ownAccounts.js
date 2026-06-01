@@ -29,14 +29,57 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const { email, password, platform, duration, start_date, end_date, status, notes } = req.body;
+  const client = await pool.connect();
   try {
-    const result = await pool.query(
+    await client.query('BEGIN');
+
+    // 1. Fetch current email before updating
+    const current = await client.query('SELECT email FROM own_accounts WHERE id=$1', [req.params.id]);
+    const oldEmail = current.rows[0]?.email;
+
+    // 2. Update own_accounts
+    const result = await client.query(
       `UPDATE own_accounts SET email=$1,password=$2,platform=$3,duration=$4,start_date=$5,end_date=$6,status=$7,notes=$8
        WHERE id=$9 RETURNING *`,
       [email, password, platform, duration, start_date || null, end_date || null, status, notes, req.params.id]
     );
+
+    const emailChanged = oldEmail && oldEmail !== email;
+
+    // 3. Cascade to profile_groups linked to this account
+    if (emailChanged) {
+      // Save old email to history before overwriting
+      await client.query(
+        `UPDATE profile_groups
+         SET email=$1, password=$2,
+             previous_emails = array_append(
+               COALESCE(previous_emails, '{}'),
+               $3
+             )
+         WHERE account_source='own' AND account_id=$4`,
+        [email, password, oldEmail, req.params.id]
+      );
+    } else {
+      await client.query(
+        `UPDATE profile_groups SET password=$1
+         WHERE account_source='own' AND account_id=$2`,
+        [password, req.params.id]
+      );
+    }
+
+    // 4. Cascade to full_account_sales linked to this account
+    await client.query(
+      `UPDATE full_account_sales SET email=$1, password=$2
+       WHERE account_source='own' AND account_id=$3`,
+      [email, password, req.params.id]
+    );
+
+    await client.query('COMMIT');
     res.json(result.rows[0]);
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    await client.query('ROLLBACK');
+    res.status(500).json({ error: e.message });
+  } finally { client.release(); }
 });
 
 // Release: clear dates, reset to available
