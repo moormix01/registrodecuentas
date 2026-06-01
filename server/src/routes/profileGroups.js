@@ -86,6 +86,45 @@ router.post('/', async (req, res) => {
   } finally { client.release(); }
 });
 
+// PUT /:id — edit a profile group (saves old email to history if it changes)
+router.put('/:id', async (req, res) => {
+  const { email, password, platform, duration, notes } = req.body;
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Fetch current email
+    const current = await client.query('SELECT email FROM profile_groups WHERE id=$1', [req.params.id]);
+    if (current.rows.length === 0) { res.status(404).json({ error: 'Grupo no encontrado' }); return; }
+    const oldEmail = current.rows[0].email;
+
+    let result;
+    if (oldEmail && oldEmail !== email) {
+      // Email changed — save old email to previous_emails history
+      result = await client.query(
+        `UPDATE profile_groups
+         SET email=$1, password=$2, platform=$3, duration=$4, notes=$5,
+             previous_emails = array_append(COALESCE(previous_emails, '{}'), $6)
+         WHERE id=$7 RETURNING *`,
+        [email, password, platform, duration, notes, oldEmail, req.params.id]
+      );
+    } else {
+      // Only password/other fields changed
+      result = await client.query(
+        `UPDATE profile_groups SET email=$1, password=$2, platform=$3, duration=$4, notes=$5
+         WHERE id=$6 RETURNING *`,
+        [email, password, platform, duration, notes, req.params.id]
+      );
+    }
+
+    await client.query('COMMIT');
+    res.json(result.rows[0]);
+  } catch (e) {
+    await client.query('ROLLBACK');
+    res.status(500).json({ error: e.message });
+  } finally { client.release(); }
+});
+
 router.delete('/:id', async (req, res) => {
   try {
     await pool.query('DELETE FROM profile_groups WHERE id=$1', [req.params.id]);
