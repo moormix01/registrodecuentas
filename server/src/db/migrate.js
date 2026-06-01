@@ -53,6 +53,7 @@ async function migrate() {
         account_source VARCHAR(20) DEFAULT 'manual',
         account_id INTEGER,
         notes TEXT,
+        previous_emails TEXT[] DEFAULT '{}',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
@@ -91,6 +92,7 @@ async function migrate() {
       ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS sale_price DECIMAL(10,2);
       ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS account_source VARCHAR(20) DEFAULT 'manual';
       ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS account_id INTEGER;
+      ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS previous_emails TEXT[] DEFAULT '{}';
       ALTER TABLE profile_sales DROP COLUMN IF EXISTS price;
       ALTER TABLE full_account_sales ADD COLUMN IF NOT EXISTS sale_price DECIMAL(10,2);
       ALTER TABLE full_account_sales ADD COLUMN IF NOT EXISTS account_source VARCHAR(20) DEFAULT 'manual';
@@ -98,10 +100,10 @@ async function migrate() {
       ALTER TABLE full_account_sales DROP COLUMN IF EXISTS price;
     `).catch(() => {});
 
-    
     await client.query(`
       ALTER TABLE profile_groups ADD COLUMN IF NOT EXISTS price_per_profile DECIMAL(10,2);
     `).catch(() => {});
+
     console.log('✅ Base de datos migrada correctamente');
   } catch (err) {
     console.error('Error en migración:', err);
