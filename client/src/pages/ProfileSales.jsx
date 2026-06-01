@@ -37,9 +37,21 @@ export default function ProfileSales() {
 
   const handleCopy = (text, key) => { copyToClipboard(text); setCopied(key); setTimeout(() => setCopied(null), 1500); };
   const salesForGroup = (gid) => sales.filter(s => s.group_id === gid);
-  const filteredGroups = groups.filter(g =>
-    !search || g.platform.toLowerCase().includes(search.toLowerCase()) || g.email.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredGroups = groups.filter(g => {
+    if (!search) return true;
+    const s = search.toLowerCase();
+    if (g.platform.toLowerCase().includes(s) || g.email.toLowerCase().includes(s)) return true;
+    if (g.previous_emails && g.previous_emails.some(pe => pe.toLowerCase().includes(s))) return true;
+    return false;
+  });
+
+  const matchedOldEmail = (group) => {
+    if (!search) return null;
+    const s = search.toLowerCase();
+    if (!group.previous_emails || group.previous_emails.length === 0) return null;
+    if (group.email.toLowerCase().includes(s)) return null; // current email matches, no need for old badge
+    return group.previous_emails.find(pe => pe.toLowerCase().includes(s)) || null;
+  };
 
   const handleAccountSelect = (account) => {
     setForm(f => ({
@@ -133,6 +145,11 @@ export default function ProfileSales() {
                     <span className="platform-badge">{group.platform}</span>
                     <div className="flex items-center gap-2 min-w-0">
                       <span className="font-mono text-xs text-white truncate">{group.email}</span>
+                      {matchedOldEmail(group) && (
+                        <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.35)', color: '#fbbf24' }}>
+                          antes: {matchedOldEmail(group)}
+                        </span>
+                      )}
                       <button onClick={e => { e.stopPropagation(); handleCopy(group.email, `ge${group.id}`); }} className="btn-secondary p-1">
                         {copied === `ge${group.id}` ? <Check size={11} style={{ color: '#10b981' }} /> : <Copy size={11} />}
                       </button>
