@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, ShoppingBag, Users, Crown, LogOut, X, Wifi } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingBag, Users, Crown, Bot, LogOut, X, Wifi } from 'lucide-react';
 
 const LINKS = [
   { key: 'dashboard',           label: 'Dashboard',           icon: LayoutDashboard },
@@ -6,6 +6,7 @@ const LINKS = [
   { key: 'provider-accounts',   label: 'Cuentas Proveedores', icon: ShoppingBag },
   { key: 'profile-sales',       label: 'Ventas de Perfiles',  icon: Users },
   { key: 'full-account-sales',  label: 'Ventas Completas',    icon: Crown },
+  { key: 'asistente',           label: 'Asistente IA',        icon: Bot },
 ];
 
 export default function Sidebar({ page, setPage, onLogout, mobileOpen, setMobileOpen }) {
