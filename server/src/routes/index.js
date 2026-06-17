@@ -7,6 +7,7 @@ const profileSales = require('./profileSales');
 const fullAccountSales = require('./fullAccountSales');
 const dashboard = require('./dashboard');
 const accounts = require('./accounts');
+const chat = require('./chat');
 
 const router = Router();
 
@@ -19,5 +20,6 @@ router.use('/profile-sales', profileSales);
 router.use('/full-account-sales', fullAccountSales);
 router.use('/dashboard', dashboard);
 router.use('/accounts', accounts);
+router.use('/chat', chat);
 
 module.exports = router;
